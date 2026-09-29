@@ -44,6 +44,7 @@ import io.github.yamin8000.owl.common.ui.components.ScaffoldWithTitle
 import io.github.yamin8000.owl.common.ui.theme.PreviewTheme
 import io.github.yamin8000.owl.common.ui.theme.Sizes
 import io.github.yamin8000.owl.datastore.domain.model.ThemeType
+import io.github.yamin8000.owl.feature_settings.ui.components.BackupSettings
 import io.github.yamin8000.owl.feature_settings.ui.components.DictionarySourceSettings
 import io.github.yamin8000.owl.feature_settings.ui.components.GeneralSettings
 import io.github.yamin8000.owl.feature_settings.ui.components.SettingsItemCard
@@ -194,6 +195,15 @@ internal fun SettingsContent(
                                                     it
                                                 )
                                             )
+                                        }
+                                    )
+                                    BackupSettings(
+                                        backupStatus = state.backupStatus,
+                                        backupJson = state.backupJson,
+                                        onExport = { onAction(SettingsAction.OnExportData) },
+                                        onImport = { onAction(SettingsAction.OnImportData(it)) },
+                                        onBackupJsonConsumed = {
+                                            onAction(SettingsAction.OnBackupJsonConsumed)
                                         }
                                     )
                                 }

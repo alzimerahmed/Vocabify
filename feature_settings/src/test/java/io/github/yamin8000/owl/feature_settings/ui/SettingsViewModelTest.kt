@@ -23,6 +23,7 @@ package io.github.yamin8000.owl.feature_settings.ui
 import app.cash.turbine.test
 import io.github.yamin8000.owl.common.domain.model.DictionarySource
 import io.github.yamin8000.owl.common.util.TTS
+import io.github.yamin8000.owl.datastore.domain.usecase.backup.BackupUseCases
 import io.github.yamin8000.owl.datastore.domain.model.ThemeType
 import io.github.yamin8000.owl.datastore.domain.usecase.settings.GetDictionarySource
 import io.github.yamin8000.owl.datastore.domain.usecase.settings.GetStartingBlank
@@ -69,6 +70,7 @@ class SettingsViewModelTest {
     private val getSource = mockk<GetDictionarySource>()
     private val setSource = mockk<SetDictionarySource>(relaxed = true)
     private val tts = mockk<TTS>()
+    private val backupUseCases = mockk<BackupUseCases>(relaxed = true)
 
     private fun viewModel() = SettingsViewModel(
         useCases = SettingUseCases(
@@ -83,6 +85,7 @@ class SettingsViewModelTest {
             getSource = getSource,
             setSource = setSource
         ),
+        backupUseCases = backupUseCases,
         tts = tts
     )
 

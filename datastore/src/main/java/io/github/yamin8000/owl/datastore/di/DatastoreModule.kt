@@ -26,6 +26,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import com.squareup.moshi.Moshi
 import io.github.yamin8000.owl.datastore.data.datasource.Datastore.favouritesDataStore
 import io.github.yamin8000.owl.datastore.data.datasource.Datastore.historyDataStore
 import io.github.yamin8000.owl.datastore.data.datasource.Datastore.settingsDataStore
@@ -35,6 +36,9 @@ import io.github.yamin8000.owl.datastore.data.repository.SettingsDatastoreReposi
 import io.github.yamin8000.owl.datastore.domain.repository.FavouriteRepository
 import io.github.yamin8000.owl.datastore.domain.repository.HistoryRepository
 import io.github.yamin8000.owl.datastore.domain.repository.SettingsRepository
+import io.github.yamin8000.owl.datastore.domain.usecase.backup.BackupUseCases
+import io.github.yamin8000.owl.datastore.domain.usecase.backup.ExportUserData
+import io.github.yamin8000.owl.datastore.domain.usecase.backup.ImportUserData
 import io.github.yamin8000.owl.datastore.domain.usecase.favourites.AddFavourite
 import io.github.yamin8000.owl.datastore.domain.usecase.favourites.FavouriteUseCases
 import io.github.yamin8000.owl.datastore.domain.usecase.favourites.GetAllFavourite
@@ -118,4 +122,21 @@ object DatastoreModule {
             getAllFavourite = GetAllFavourite(repository)
         )
     }
+
+    @Provides
+    @Singleton
+    fun providesBackupUseCases(
+        historyRepository: HistoryRepository,
+        favouriteRepository: FavouriteRepository,
+        moshi: Moshi
+    ): BackupUseCases {
+        return BackupUseCases(
+            exportUserData = ExportUserData(historyRepository, favouriteRepository, moshi),
+            importUserData = ImportUserData(historyRepository, favouriteRepository, moshi)
+        )
+    }
+
+    @Provides
+    @Singleton
+    fun providesMoshi(): Moshi = Moshi.Builder().build()
 }

@@ -31,4 +31,7 @@ sealed interface SettingsAction {
     data class OnThemeChange(val newTheme: ThemeType) : SettingsAction
     data class OnSourceChanged(val source: DictionarySource) : SettingsAction
     data class OnTabChanged(val newTab: SettingsTab) : SettingsAction
+    data object OnExportData : SettingsAction
+    data class OnImportData(val json: String) : SettingsAction
+    data object OnBackupJsonConsumed : SettingsAction
 }

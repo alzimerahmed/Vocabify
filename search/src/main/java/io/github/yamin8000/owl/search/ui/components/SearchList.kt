@@ -33,13 +33,12 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
-import io.github.yamin8000.owl.common.ui.components.AppText
+import io.github.yamin8000.owl.common.ui.components.OfflineBanner
 import io.github.yamin8000.owl.common.ui.theme.AppPreview
 import io.github.yamin8000.owl.common.ui.theme.PreviewTheme
 import io.github.yamin8000.owl.common.ui.theme.Sizes
@@ -78,6 +77,7 @@ fun SearchList(
     onPlayAudio: (String) -> Unit,
     entries: ImmutableList<Entry>,
     modifier: Modifier = Modifier,
+    etymology: String? = null,
     listState: LazyListState = rememberLazyListState()
 ) {
     LazyColumn(
@@ -95,15 +95,23 @@ fun SearchList(
                         enter = slideInVertically() + fadeIn(),
                         exit = slideOutVertically() + fadeOut(),
                         content = {
-                            AppText(
+                            OfflineBanner(
                                 modifier = Modifier.padding(Sizes.Small),
-                                color = MaterialTheme.colorScheme.error,
                                 text = stringResource(R.string.general_net_error)
                             )
                         }
                     )
                 }
             )
+
+            if (!etymology.isNullOrBlank()) {
+                item(
+                    key = "etymology-$etymology",
+                    content = {
+                        EtymologyCard(etymology = etymology)
+                    }
+                )
+            }
 
             if (word.isNotBlank()) {
                 item(

@@ -32,8 +32,11 @@ import io.github.yamin8000.owl.search.data.datasource.remote.free.FreeDictionary
 import io.github.yamin8000.owl.search.data.datasource.remote.wiktionary.WiktionaryAPI
 import io.github.yamin8000.owl.search.data.repository.remote.FreeDictionaryRetrofitApiRepository
 import io.github.yamin8000.owl.search.data.repository.remote.WiktionaryApiRetrofitRepository
+import io.github.yamin8000.owl.search.data.repository.remote.WiktionaryEtymologyApiRepository
 import io.github.yamin8000.owl.search.domain.repository.remote.FreeDictionaryApiRepository
 import io.github.yamin8000.owl.search.domain.repository.remote.WiktionaryApiRepository
+import io.github.yamin8000.owl.search.domain.repository.remote.WiktionaryEtymologyRepository
+import io.github.yamin8000.owl.search.domain.usecase.search.GetEtymology
 import io.github.yamin8000.owl.search.domain.usecase.search.SearchFreeDictionary
 import io.github.yamin8000.owl.search.domain.usecase.search.SearchWiktionary
 import okhttp3.OkHttpClient
@@ -148,6 +151,18 @@ object SearchWeb {
     @Singleton
     fun providesWiktionaryApiRepository(api: WiktionaryAPI): WiktionaryApiRepository {
         return WiktionaryApiRetrofitRepository(api)
+    }
+
+    @Provides
+    @Singleton
+    fun providesWiktionaryEtymologyRepository(api: WiktionaryAPI): WiktionaryEtymologyRepository {
+        return WiktionaryEtymologyApiRepository(api)
+    }
+
+    @Provides
+    @Singleton
+    fun providesGetEtymologyUseCase(repository: WiktionaryEtymologyRepository): GetEtymology {
+        return GetEtymology(repository)
     }
 
     @Provides

@@ -50,8 +50,16 @@ dependencies {
     api(project(":common"))
     //datastore
     api(libs.androidx.datastore.preferences)
+    //moshi
+    implementation(libs.moshi.kotlin)
+    ksp(libs.moshi.kotlin.codegen)
     //hilt
     implementation(libs.hilt.android)
     ksp(libs.hilt.android.compiler)
     implementation(libs.hilt.lifecycle.compose)
+    //tests
+    testImplementation(libs.junit4)
+    testImplementation(libs.mockk)
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.turbine)
 }
