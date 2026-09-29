@@ -87,4 +87,18 @@
     <string name="backup_export_success">बैकअप निर्यात हो गया</string>
     <string name="backup_import_success">%1$d प्रविष्टियाँ आयात की गईं</string>
     <string name="backup_invalid_file">मान्य Vocabify बैकअप फ़ाइल नहीं है</string>
+    <string name="wotd_notification_channel_name">आज का शब्द</string>
+    <string name="wotd_notification_title">आज का शब्द</string>
+    <string name="wotd_notification_body">आज का शब्द: %1$s — देखने के लिए टैप करें</string>
+    <string name="wotd_card_label">आज का शब्द</string>
+    <string name="wotd_notification">दैनिक शब्द नोटिफिकेशन</string>
+    <string name="wotd_widget_label">आज का शब्द</string>
+    <string name="wotd_widget_description">सर्च और आज का शब्द एक नज़र में</string>
+    <string name="dynamic_color">डाइनामिक रंग (Material You)</string>
+    <string name="app_icon">एप आइकन</string>
+    <string name="app_icon_default">डिफ़ॉल्ट</string>
+    <string name="app_icon_monochrome">मोनोक्रोम</string>
+    <string name="wotd_notification_channel_description">हर दिन एक नया शब्द दिखाता है</string>
+    <string name="wotd_widget_word_description">आज का शब्द, खोजने के लिए टैप करें</string>
+    <string name="wotd_widget_search_description">सर्च खोलें</string>
 </resources>

@@ -87,4 +87,18 @@
     <string name="backup_export_success">پشتیبان با موفقیت ذخیره شد</string>
     <string name="backup_import_success">%1$d مورد وارد شد</string>
     <string name="backup_invalid_file">فایل پشتیبان معتبر نیست</string>
+    <string name="wotd_notification_channel_name">واژه روز</string>
+    <string name="wotd_notification_title">واژه روز</string>
+    <string name="wotd_notification_body">واژه امروز: %1$s — برای جستجو بزنید</string>
+    <string name="wotd_card_label">واژه روز</string>
+    <string name="wotd_notification">اطلاعیه روزانه واژه</string>
+    <string name="wotd_widget_label">واژه روز</string>
+    <string name="wotd_widget_description">جستجو و واژه امروز در یک نگاه</string>
+    <string name="dynamic_color">رنگ پویا (Material You)</string>
+    <string name="app_icon">آیکن برنامه</string>
+    <string name="app_icon_default">پیشفرض</string>
+    <string name="app_icon_monochrome">تک‌رنگ</string>
+    <string name="wotd_notification_channel_description">هر روز یک واژه جدید نشان می‌دهد</string>
+    <string name="wotd_widget_word_description">واژه امروز، برای جستجو بزنید</string>
+    <string name="wotd_widget_search_description">باز کردن جستجو</string>
 </resources>

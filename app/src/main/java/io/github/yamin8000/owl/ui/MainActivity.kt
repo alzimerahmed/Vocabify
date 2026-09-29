@@ -65,14 +65,18 @@ internal class MainActivity : BaseActivity() {
 
         showContent {
             Scaffold {
-                MainNav(onThemeChanged = { appTheme = it })
+                MainNav(
+                    onThemeChanged = { appTheme = it },
+                    onDynamicColorChanged = { appIsDynamicColor = it }
+                )
             }
         }
     }
 
     @Composable
     private fun MainNav(
-        onThemeChanged: (ThemeType) -> Unit
+        onThemeChanged: (ThemeType) -> Unit,
+        onDynamicColorChanged: (Boolean) -> Unit
     ) {
         val start = "${Nav.Route.Home}/{Search}"
         val navController = rememberNavController()
@@ -132,7 +136,8 @@ internal class MainActivity : BaseActivity() {
                 composable(Nav.Route.Settings()) {
                     SettingsScreen(
                         onBackClick = onBackClick,
-                        onThemeChanged = onThemeChanged
+                        onThemeChanged = onThemeChanged,
+                        onDynamicColorChanged = onDynamicColorChanged
                     )
                 }
             }

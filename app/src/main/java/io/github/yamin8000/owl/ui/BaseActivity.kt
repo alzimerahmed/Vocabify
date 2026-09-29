@@ -45,10 +45,13 @@ internal open class BaseActivity : ComponentActivity() {
 
     var appTheme by mutableStateOf<ThemeType>(ThemeType.System)
 
+    var appIsDynamicColor by mutableStateOf(true)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         appTheme = findTheme()
+        appIsDynamicColor = findDynamicColor()
     }
 
     protected fun showContent(
@@ -60,9 +63,21 @@ internal open class BaseActivity : ComponentActivity() {
             AppTheme(
                 isDarkTheme = isDarkTheme(appTheme, isSystemInDarkTheme),
                 isOledTheme = appTheme == ThemeType.Darker || appTheme == ThemeType.SystemDarker,
-                isDynamicColor = appTheme == ThemeType.System || appTheme == ThemeType.SystemDarker,
+                isDynamicColor = appIsDynamicColor &&
+                    (appTheme == ThemeType.System || appTheme == ThemeType.SystemDarker),
                 content = content
             )
+        }
+    }
+
+    private fun findDynamicColor(): Boolean {
+        return try {
+            runBlocking {
+                settings.getDynamicColor()
+            }
+        } catch (e: InterruptedException) {
+            log(e.stackTraceToString())
+            true
         }
     }
 

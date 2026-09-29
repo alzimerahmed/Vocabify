@@ -87,4 +87,18 @@
     <string name="backup_export_success">バックアップを書き出しました</string>
     <string name="backup_import_success">%1$d 件をインポートしました</string>
     <string name="backup_invalid_file">有効な Vocabify バックアップファイルではありません</string>
+    <string name="wotd_notification_channel_name">今日の単語</string>
+    <string name="wotd_notification_title">今日の単語</string>
+    <string name="wotd_notification_body">今日の単語: %1$s — タップして調べる</string>
+    <string name="wotd_card_label">今日の単語</string>
+    <string name="wotd_notification">毎日の単語通知</string>
+    <string name="wotd_widget_label">今日の単語</string>
+    <string name="wotd_widget_description">検索と今日の単語を一瞬で</string>
+    <string name="dynamic_color">ダイナミックカラー (Material You)</string>
+    <string name="app_icon">アプリのアイコン</string>
+    <string name="app_icon_default">デフォルト</string>
+    <string name="app_icon_monochrome">モノクローム</string>
+    <string name="wotd_notification_channel_description">毎日新しい単語をお知らせします</string>
+    <string name="wotd_widget_word_description">今日の単語、タップして検索</string>
+    <string name="wotd_widget_search_description">検索を開く</string>
 </resources>
