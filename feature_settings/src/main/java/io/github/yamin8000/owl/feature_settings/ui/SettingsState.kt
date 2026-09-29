@@ -35,5 +35,14 @@ data class SettingsState(
     val languages: ImmutableList<Locale> = persistentListOf(),
     val source: DictionarySource = DictionarySource.FreeDictionary,
     val currentTab: SettingsTab = SettingsTab.General,
-    val isTtsAvailable: Boolean = false
+    val isTtsAvailable: Boolean = false,
+    val backupJson: String? = null,
+    val backupStatus: BackupStatus = BackupStatus.Idle
 )
+
+sealed interface BackupStatus {
+    data object Idle : BackupStatus
+    data object Exported : BackupStatus
+    data class Imported(val entryCount: Int) : BackupStatus
+    data object InvalidFile : BackupStatus
+}

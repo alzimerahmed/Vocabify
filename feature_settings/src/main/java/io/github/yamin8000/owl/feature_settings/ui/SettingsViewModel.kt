@@ -25,6 +25,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.github.yamin8000.owl.common.util.TTS
+import io.github.yamin8000.owl.datastore.domain.usecase.backup.BackupUseCases
 import io.github.yamin8000.owl.datastore.domain.usecase.settings.SettingUseCases
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -40,6 +41,7 @@ import kotlin.time.Duration.Companion.seconds
 @HiltViewModel
 class SettingsViewModel @Inject constructor(
     private val useCases: SettingUseCases,
+    private val backupUseCases: BackupUseCases,
     private val tts: TTS,
 ) : ViewModel() {
     private val scope = viewModelScope
@@ -92,6 +94,44 @@ class SettingsViewModel @Inject constructor(
 
             is SettingsAction.OnTabChanged -> {
                 _state.update { it.copy(currentTab = action.newTab) }
+            }
+
+            SettingsAction.OnExportData -> {
+                scope.launch {
+                    val json = try {
+                        backupUseCases.exportUserData()
+                    } catch (ignored: Exception) {
+                        null
+                    }
+                    _state.update {
+                        it.copy(
+                            backupJson = json,
+                            backupStatus = if (json != null) BackupStatus.Exported else BackupStatus.InvalidFile
+                        )
+                    }
+                }
+            }
+
+            is SettingsAction.OnImportData -> {
+                scope.launch {
+                    val imported = try {
+                        backupUseCases.importUserData(action.json)
+                    } catch (ignored: Exception) {
+                        null
+                    }
+                    _state.update {
+                        it.copy(
+                            backupStatus = when {
+                                imported == null -> BackupStatus.InvalidFile
+                                else -> BackupStatus.Imported(imported)
+                            }
+                        )
+                    }
+                }
+            }
+
+            SettingsAction.OnBackupJsonConsumed -> {
+                _state.update { it.copy(backupJson = null) }
             }
         }
     }
