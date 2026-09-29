@@ -77,4 +77,7 @@
     <string name="see_source">See source</string>
     <string name="advanced">Advanced</string>
     <string name="tts_error">Failed to play the speech, TTS error!</string>
+    <string name="voice_search">Hangalapú keresés</string>
+    <string name="voice_search_prompt">Beszéljen most</string>
+    <string name="overlay_search_tile">Átfedő keresés</string>
 </resources>

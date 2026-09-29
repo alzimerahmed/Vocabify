@@ -77,4 +77,7 @@
     <string name="see_source">دیدن منبع</string>
     <string name="advanced">پیشرفته</string>
     <string name="tts_error">Failed to play the speech, TTS error!</string>
+    <string name="voice_search">جستجوی صوتی</string>
+    <string name="voice_search_prompt">اکنون صحبت کنید</string>
+    <string name="overlay_search_tile">جستجوی همپوشان</string>
 </resources>
