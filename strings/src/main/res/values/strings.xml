@@ -106,4 +106,13 @@
     <string name="wotd_notification_channel_description">Shows one new word every day</string>
     <string name="wotd_widget_word_description">Word of the day, tap to search it</string>
     <string name="wotd_widget_search_description">Open Vocabify search</string>
+    <string name="learning">Learning</string>
+    <string name="learning_empty">No favourite words yet. Add words to favourites to practice them here.</string>
+    <string name="flip_card">Flip card</string>
+    <string name="tap_to_reveal">Tap to reveal</string>
+    <string name="previous_card">Previous card</string>
+    <string name="next_card">Next card</string>
+    <string name="shuffle_deck">Shuffle deck</string>
+    <string name="card_progress">%1$d of %2$d</string>
+    <string name="no_cached_definition">Look this word up once to see its definition here.</string>
 </resources>

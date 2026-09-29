@@ -22,6 +22,7 @@
 package io.github.yamin8000.owl.common.ui.components.crud
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -71,6 +72,7 @@ fun <T> CrudContent(
     onItemClick: (T) -> Unit,
     modifier: Modifier = Modifier,
     itemDisplayProvider: (T) -> String = { it.toString() },
+    actions: @Composable RowScope.() -> Unit = {},
     emptyContent: (@Composable () -> Unit) = {
         EmptyList(
             modifier = Modifier.fillMaxWidth()
@@ -81,6 +83,7 @@ fun <T> CrudContent(
         modifier = modifier,
         title = title,
         onBackClick = onBackClick,
+        actions = actions,
         content = {
             val isNotEmpty by remember(items.size) { mutableStateOf(items.isNotEmpty()) }
             if (isNotEmpty) {

@@ -100,6 +100,7 @@ dependencies {
     implementation(project(":feature_settings"))
     implementation(project(":feature_history"))
     implementation(project(":feature_favourites"))
+    implementation(project(":feature_learning"))
     implementation(project(":feature_overlay"))
     implementation(project(":feature_about"))
     //core android/kotlin

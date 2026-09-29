@@ -45,6 +45,7 @@ import io.github.yamin8000.owl.BuildConfig
 import io.github.yamin8000.owl.datastore.domain.model.ThemeType
 import io.github.yamin8000.owl.feature_about.ui.AboutScreen
 import io.github.yamin8000.owl.feature_favourites.FavouritesScreen
+import io.github.yamin8000.owl.feature_learning.ui.LearningScreen
 import io.github.yamin8000.owl.feature_home.di.HomeViewModelFactory
 import io.github.yamin8000.owl.feature_home.ui.HomeScreen
 import io.github.yamin8000.owl.feature_home.ui.HomeViewModel
@@ -135,7 +136,12 @@ internal class MainActivity : BaseActivity() {
                     FavouritesScreen(
                         onBackClick = onBackClick,
                         onFavouritesItemClick = { navController.navigate("${Nav.Route.Home}/${it}") },
+                        onNavigateToLearning = { navController.navigate(Nav.Route.Learning()) },
                     )
+                }
+
+                composable(Nav.Route.Learning()) {
+                    LearningScreen(onBackClick = onBackClick)
                 }
 
                 composable(Nav.Route.History()) {

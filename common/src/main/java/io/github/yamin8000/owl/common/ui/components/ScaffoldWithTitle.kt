@@ -24,6 +24,7 @@ package io.github.yamin8000.owl.common.ui.components
 import androidx.compose.foundation.basicMarquee
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
@@ -53,6 +54,7 @@ fun ScaffoldWithTitle(
     onBackClick: () -> Unit,
     modifier: Modifier = Modifier,
     snackbarHost: @Composable () -> Unit = {},
+    actions: @Composable RowScope.() -> Unit = {},
     content: @Composable BoxScope.() -> Unit
 ) {
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
@@ -83,6 +85,7 @@ fun ScaffoldWithTitle(
                                 contentDescription = stringResource(R.string.back),
                                 onClick = onBackClick
                             )
+                            actions()
                         }
                     )
                 }
