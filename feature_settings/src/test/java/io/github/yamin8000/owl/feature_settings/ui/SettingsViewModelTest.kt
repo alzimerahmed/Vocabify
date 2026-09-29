@@ -24,6 +24,7 @@ import app.cash.turbine.test
 import io.github.yamin8000.owl.common.domain.model.DictionarySource
 import io.github.yamin8000.owl.common.util.TTS
 import io.github.yamin8000.owl.datastore.domain.usecase.backup.BackupUseCases
+import io.github.yamin8000.owl.datastore.domain.model.IconVariant
 import io.github.yamin8000.owl.datastore.domain.model.ThemeType
 import io.github.yamin8000.owl.datastore.domain.usecase.settings.GetDictionarySource
 import io.github.yamin8000.owl.datastore.domain.usecase.settings.GetStartingBlank
@@ -83,7 +84,17 @@ class SettingsViewModelTest {
             getStartingBlank = getStartingBlank,
             setStartingBlank = setStartingBlank,
             getSource = getSource,
-            setSource = setSource
+            setSource = setSource,
+            getDynamicColor = mockk { coEvery { invoke() } returns true },
+            setDynamicColor = mockk(relaxed = true),
+            getWotdNotification = mockk { coEvery { invoke() } returns false },
+            setWotdNotification = mockk(relaxed = true),
+            getIconVariant = mockk { coEvery { invoke() } returns IconVariant.Default },
+            setIconVariant = mockk(relaxed = true),
+            getWotdWord = mockk { coEvery { invoke() } returns null },
+            setWotdWord = mockk(relaxed = true),
+            getWotdDate = mockk { coEvery { invoke() } returns null },
+            setWotdDate = mockk(relaxed = true)
         ),
         backupUseCases = backupUseCases,
         tts = tts
