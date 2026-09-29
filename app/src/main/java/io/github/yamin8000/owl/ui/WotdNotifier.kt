@@ -26,6 +26,7 @@ import android.content.Context
 import android.content.Intent
 import androidx.core.app.NotificationChannelCompat
 import androidx.core.app.NotificationManagerCompat
+import io.github.yamin8000.owl.R
 import io.github.yamin8000.owl.strings.R as StringsR
 import io.github.yamin8000.owl.ui.MainActivity
 
@@ -75,7 +76,7 @@ internal object WotdNotifier {
         )
 
         val notification = androidx.core.app.NotificationCompat.Builder(context, CHANNEL_ID)
-            .setSmallIcon(StringsR.drawable.ic_wotd_notification)
+            .setSmallIcon(R.drawable.ic_wotd_notification)
             .setContentTitle(context.getString(StringsR.string.wotd_notification_title))
             .setContentText(word)
             .setStyle(
