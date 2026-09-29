@@ -85,7 +85,7 @@ internal fun WotdCard(
                 tint = MaterialTheme.colorScheme.onSecondaryContainer
             )
             Column(
-                verticalArrangement = Arrangement.spacedBy(Sizes.XXSmall)
+                verticalArrangement = Arrangement.spacedBy(Sizes.xxSmall)
             ) {
                 AppText(
                     text = stringResource(R.string.wotd_card_label),
