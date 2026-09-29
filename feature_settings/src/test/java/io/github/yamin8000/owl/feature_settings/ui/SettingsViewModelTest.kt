@@ -85,7 +85,6 @@ class SettingsViewModelTest {
             getSource = getSource,
             setSource = setSource
         ),
-        ),
         backupUseCases = backupUseCases,
         tts = tts
     )
