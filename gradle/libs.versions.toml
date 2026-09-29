@@ -12,15 +12,22 @@ androidx-room = "2.8.4"
 coil-compose = "2.7.0"
 datafaker = "2.7.0"
 desugar-jdk-libs = "2.1.5"
+detekt = "2.0.0-alpha.6"
 hilt = "2.60.1"
 hilt-lifecycle-compose = "1.4.0"
 jsoup = "1.23.2"
+junit = "4.13.2"
 kotlin = "2.4.20"
+kotlinx-coroutines = "1.10.2"
 kotlinx-collections-immutable = "0.5.2"
+ktlint-gradle = "14.2.0"
 ksp = "2.3.11"
 lottie-compose = "6.7.1"
+mockk = "1.14.11"
 moshi = "1.15.2"
 retrofit = "3.0.0"
+robolectric = "4.16.1"
+turbine = "1.2.1"
 
 [libraries]
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activity-compose" }
@@ -31,6 +38,7 @@ androidx-compose-material3-window-size = { module = "androidx.compose.material3:
 androidx-compose-ui = { module = "androidx.compose.ui:ui" }
 androidx-compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
 androidx-compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview" }
+androidx-compose-ui-test-junit4 = { module = "androidx.compose.ui:ui-test-junit4" }
 androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "androidx-core-ktx" }
 androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "androidx-core-splash" }
 androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "androidx-datastore" }
@@ -47,7 +55,12 @@ hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt"
 hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt" }
 hilt-lifecycle-compose = { module = "androidx.hilt:hilt-lifecycle-viewmodel-compose", version.ref = "hilt-lifecycle-compose" }
 jsoup = { module = "org.jsoup:jsoup", version.ref = "jsoup" }
+junit4 = { module = "junit:junit", version.ref = "junit" }
 kotlinx-collections-immutable = { module = "org.jetbrains.kotlinx:kotlinx-collections-immutable", version.ref = "kotlinx-collections-immutable" }
+kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinx-coroutines" }
+mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
+robolectric = { module = "org.robolectric:robolectric", version.ref = "robolectric" }
+turbine = { module = "app.cash.turbine:turbine", version.ref = "turbine" }
 lottie-compose = { module = "com.airbnb.android:lottie-compose", version.ref = "lottie-compose" }
 moshi-kotlin = { module = "com.squareup.moshi:moshi-kotlin", version.ref = "moshi" }
 moshi-kotlin-codegen = { module = "com.squareup.moshi:moshi-kotlin-codegen", version.ref = "moshi" }
@@ -59,9 +72,11 @@ retrofit-type-keeper = { module = "com.squareup.retrofit2:response-type-keeper",
 android-application = { id = "com.android.application", version.ref = "android-application" }
 android-library = { id = "com.android.library", version.ref = "android-application" }
 androidx-room = { id = "androidx.room", version.ref = "androidx-room" }
+detekt = { id = "dev.detekt", version.ref = "detekt" }
 google-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 jetbrains-kotlin-compose-plugin = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-parcelize = { id = "kotlin-parcelize" }
+ktlint-gradle = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint-gradle" }
 legacy-kapt = { id = "com.android.legacy-kapt", version.ref = "android-application" }

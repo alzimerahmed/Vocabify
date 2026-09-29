@@ -1,0 +1,21 @@
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+[*.{kt,kts}]
+# ktlint is run in report-only mode until the legacy codebase is formatted;
+# these settings keep the ruleset aligned with the existing IntelliJ "official"
+# style so the eventual ktlintFormat pass is minimal.
+max_line_length = off
+ij_kotlin_trailing_comma_on_call_site = false
+ij_kotlin_trailing_comma_on_declaration_site = false
+ktlint_standard_filename = disabled
+ktlint_standard_import-ordering = disabled
+ktlint_standard_max-line-length = disabled
+ktlint_standard_function-signature = disabled
+ktlint_standard_trailing-comma-on-call-site = disabled
+ktlint_standard_trailing-comma-on-declaration-site = disabled
