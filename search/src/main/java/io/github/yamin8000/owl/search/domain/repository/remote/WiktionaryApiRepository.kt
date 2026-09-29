@@ -23,6 +23,6 @@ package io.github.yamin8000.owl.search.domain.repository.remote
 
 import io.github.yamin8000.owl.search.domain.model.Entry
 
-interface WiktionaryApiRepository {
-    suspend fun searchWord(word: String): List<Entry>
+interface WiktionaryApiRepository : DictionarySourceRepository {
+    override suspend fun searchWord(word: String): List<Entry>
 }

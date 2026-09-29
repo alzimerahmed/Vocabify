@@ -27,6 +27,26 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.jvm) apply false
     alias(libs.plugins.hilt) apply false
     alias(libs.plugins.androidx.room) apply false
+    alias(libs.plugins.ktlint.gradle) apply false
+    alias(libs.plugins.detekt) apply false
+}
+
+subprojects {
+    // ktlint: report-only for now (ignoreFailures) so `./gradlew build` stays green while the
+    // legacy codebase is progressively formatted; CI publishes reports as artifacts.
+    apply(plugin = "org.jlleitschuh.gradle.ktlint")
+    configure<org.jlleitschuh.gradle.ktlint.KtlintExtension> {
+        ignoreFailures.set(true)
+    }
+
+    // detekt: hard gate, wired into `check` by the plugin. Per-module baseline files live in
+    // config/detekt/<module>-baseline.xml so new issues fail while legacy issues stay baselined.
+    apply(plugin = "dev.detekt")
+    configure<dev.detekt.gradle.extensions.DetektExtension> {
+        buildUponDefaultConfig = true
+        config.setFrom(files("$rootDir/config/detekt/detekt.yml"))
+        baseline = file("$rootDir/config/detekt/${project.name}-baseline.xml")
+    }
 }
 
 tasks.register("sortLibs") {
