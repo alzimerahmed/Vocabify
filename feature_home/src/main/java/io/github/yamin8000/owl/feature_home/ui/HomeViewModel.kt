@@ -152,6 +152,7 @@ class HomeViewModel @AssistedInject constructor(
     )
 
     private var isFirstLaunch = true
+    private var hasCompletedInternetCheck = false
 
     init {
         scope.launch {
@@ -205,6 +206,7 @@ class HomeViewModel @AssistedInject constructor(
                     _state.update { stateUpdate ->
                         stateUpdate.copy(isOnline = dnsServers.any { dnsAccessible(it) })
                     }
+                    hasCompletedInternetCheck = true
                 }
             }
 
@@ -265,8 +267,10 @@ class HomeViewModel @AssistedInject constructor(
                 cachedEntry.isNotEmpty() -> loadCachedWord(cachedEntry)
 
                 // Offline with a cold cache: don't burn a network call
-                // that is guaranteed to fail.
-                !state.value.isOnline -> errorChannel.send(HomeError.NoInternet)
+                // that is guaranteed to fail. Only trusted once at least
+                // one connectivity check has completed, because the
+                // initial state assumes offline.
+                !state.value.isOnline && hasCompletedInternetCheck -> errorChannel.send(HomeError.NoInternet)
 
                 else -> {
                     val entries = if (settingsUseCases.getSource() == DictionarySource.FreeDictionary) {
