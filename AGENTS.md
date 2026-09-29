@@ -97,6 +97,8 @@ Quick tasks: `.devin/prompt/quick.md` (commandments) + `.devin/prompt/rules.md` 
 
 ## Key References
 
+> Note: `docs/*.md` files below are the private knowledge layer (gitignored) — they exist only in the local workspace, not for external cloners.
+
 - `docs/toolset.md` — intent map (task type → skills, sub-agents, rules)
 - `docs/plan.md` — phased plan + status
 - `docs/project.md` — project state/structure

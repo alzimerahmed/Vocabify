@@ -2,7 +2,6 @@
 
 <div align="center">
 
-[![Android CI](https://github.com/yamin8000/freeDictionaryApp/actions/workflows/android.yml/badge.svg)](https://github.com/yamin8000/freeDictionaryApp/actions/workflows/android.yml)
 [![Kotlin](https://img.shields.io/badge/Kotlin-2.4-7F52FF?logo=kotlin&logoColor=white)](https://kotlinlang.org)
 [![Compose](https://img.shields.io/badge/Jetpack%20Compose-Material%203-4285F4?logo=android&logoColor=white)](https://developer.android.com/compose)
 [![License](https://img.shields.io/badge/License-GPL--3.0-blue.svg)](./LICENSE)
@@ -61,12 +60,12 @@ feature_about/       about screen
 
 ## Download
 
-- GitHub Releases: [here](https://github.com/yamin8000/freeDictionaryApp/releases)
+- GitHub Releases: see the [Releases](../../releases) page of this repository
 
 ## Building
 
 ```bash
-git clone <this repo>
+git clone <this repository>
 ./gradlew build          # requires JDK 21 + Android SDK
 ```
 
