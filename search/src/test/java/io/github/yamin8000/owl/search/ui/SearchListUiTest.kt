@@ -53,7 +53,9 @@ class SearchListUiTest {
         meanings = persistentListOf(
             Meaning(
                 partOfSpeech = "noun",
-                definitions = persistentListOf(Definition(definition = "a round fruit"))
+                definitions = persistentListOf(Definition(definition = "a round fruit")),
+                synonyms = persistentListOf(),
+                antonyms = persistentListOf()
             )
         )
     )
