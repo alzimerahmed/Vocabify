@@ -33,6 +33,7 @@ import io.github.yamin8000.owl.search.domain.repository.local.TermRepository
 import io.github.yamin8000.owl.search.domain.usecase.cache.CacheEntry
 import io.github.yamin8000.owl.search.domain.usecase.cache.CacheWordData
 import io.github.yamin8000.owl.search.domain.usecase.cache.GetCachedEntries
+import io.github.yamin8000.owl.search.domain.usecase.cache.PruneCache
 import io.github.yamin8000.owl.search.domain.usecase.cache.WordCacheUseCases
 import javax.inject.Singleton
 
@@ -56,6 +57,7 @@ object SearchUseCases {
             definitionRepository = definitionRepository,
             phoneticRepository = phoneticRepository
         ),
-        cacheWordData = CacheWordData(termRepository)
+        cacheWordData = CacheWordData(termRepository),
+        pruneCache = PruneCache(entryRepository)
     )
 }

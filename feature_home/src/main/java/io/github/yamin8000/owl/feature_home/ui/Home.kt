@@ -89,7 +89,8 @@ private fun Preview() {
                 isOnline = Random.nextBoolean(),
                 isSearching = Random.nextBoolean(),
                 searchSuggestions = persistentListOf("apple", "banana", "orange"),
-                word = "example"
+                word = "example",
+                etymology = "From Middle English example…"
             ),
             term = "example",
             isWordSelectedFromKeyboardSuggestions = Random.nextBoolean(),
@@ -275,6 +276,7 @@ internal fun HomeContent(
                     onShareWord = { onAction(HomeAction.OnShareData) },
                     isOnline = state.isOnline,
                     word = state.word,
+                    etymology = state.etymology,
                     onTextToSpeech = {
                         if (audio?.getStreamVolume(AudioManager.STREAM_MUSIC) == 0) {
                             Toast.makeText(context, increaseVolumeText, Toast.LENGTH_SHORT).show()

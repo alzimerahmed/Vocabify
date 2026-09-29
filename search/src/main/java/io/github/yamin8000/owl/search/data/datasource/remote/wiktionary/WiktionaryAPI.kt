@@ -22,8 +22,10 @@
 package io.github.yamin8000.owl.search.data.datasource.remote.wiktionary
 
 import io.github.yamin8000.owl.search.data.datasource.remote.wiktionary.dto.WikiMeaningDto
+import io.github.yamin8000.owl.search.data.datasource.remote.wiktionary.dto.WikiParseResponseDto
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Url
 
 interface WiktionaryAPI {
 
@@ -31,4 +33,14 @@ interface WiktionaryAPI {
     suspend fun search(
         @Path("term") term: String
     ): Map<String, List<WikiMeaningDto>>
+
+    /**
+     * Calls the MediaWiki API (`action=parse`) on Wiktionary. The [url]
+     * must be absolute so it overrides the REST base URL of this Retrofit
+     * instance.
+     */
+    @GET
+    suspend fun parse(
+        @Url url: String
+    ): WikiParseResponseDto
 }

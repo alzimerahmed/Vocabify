@@ -38,5 +38,6 @@ data class HomeState(
     val isVibrating: Boolean = false,
     val expandedText: String = "",
     val isShowingExpandedTextDialog: Boolean = false,
-    val expandedTextWords: ImmutableList<String> = persistentListOf()
+    val expandedTextWords: ImmutableList<String> = persistentListOf(),
+    val etymology: String? = null
 )

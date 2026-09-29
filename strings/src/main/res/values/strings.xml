@@ -85,4 +85,11 @@
     <string name="voice_search">Voice search</string>
     <string name="voice_search_prompt">Speak a word to search</string>
     <string name="overlay_search_tile">Overlay search</string>
+    <string name="etymology">Etymology</string>
+    <string name="backup_restore">Backup &amp; restore</string>
+    <string name="export_data">Export data</string>
+    <string name="import_data">Import data</string>
+    <string name="backup_export_success">Backup exported</string>
+    <string name="backup_import_success">Imported %1$d entries</string>
+    <string name="backup_invalid_file">Not a valid Vocabify backup file</string>
 </resources>

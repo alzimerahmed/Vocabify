@@ -44,6 +44,7 @@ import io.github.yamin8000.owl.feature_home.ui.util.HomeError
 import io.github.yamin8000.owl.search.utils.MediaPlayerHelper
 import io.github.yamin8000.owl.search.domain.model.Entry
 import io.github.yamin8000.owl.search.domain.usecase.cache.WordCacheUseCases
+import io.github.yamin8000.owl.search.domain.usecase.search.GetEtymology
 import io.github.yamin8000.owl.search.domain.usecase.search.SearchFreeDictionary
 import io.github.yamin8000.owl.search.domain.usecase.search.SearchWiktionary
 import kotlinx.collections.immutable.persistentListOf
@@ -81,6 +82,7 @@ class HomeViewModel @AssistedInject constructor(
     private val historyUseCases: HistoryUseCases,
     private val favouriteUseCases: FavouriteUseCases,
     private val cacheUseCases: WordCacheUseCases,
+    private val getEtymologyUseCase: GetEtymology,
     private val randomWordUseCase: GetRandomWord,
     private val mediaPlayerHelper: MediaPlayerHelper,
     val tts: TTS,
@@ -256,31 +258,54 @@ class HomeViewModel @AssistedInject constructor(
         if (searchTerm.isNotBlank()) {
             historyUseCases.addHistory(searchTerm)
 
-            _state.update { it.copy(isSearching = true) }
+            _state.update { it.copy(isSearching = true, etymology = null) }
 
             val cachedEntry = cacheUseCases.getCachedEntries(searchTerm)
-            if (cachedEntry.isEmpty()) {
-                val entries = if (settingsUseCases.getSource() == DictionarySource.FreeDictionary) {
-                    searchFreeDictionaryUseCase(searchTerm)
-                } else searchWiktionaryUseCase(searchTerm)
-                val firstEntry = entries.firstOrNull()
+            when {
+                cachedEntry.isNotEmpty() -> loadCachedWord(cachedEntry)
 
-                _state.update {
-                    it.copy(
-                        searchResult = entries.toPersistentList(),
-                        word = firstEntry?.word ?: "",
-                        searchSuggestions = persistentListOf()
-                    )
-                }
+                // Offline with a cold cache: don't burn a network call
+                // that is guaranteed to fail.
+                !state.value.isOnline -> errorChannel.send(HomeError.NoInternet)
 
-                cachedEntry.forEach { entry ->
-                    cacheUseCases.cacheEntry(entry)
-                    cacheUseCases.cacheWordData(entry)
+                else -> {
+                    val entries = if (settingsUseCases.getSource() == DictionarySource.FreeDictionary) {
+                        searchFreeDictionaryUseCase(searchTerm)
+                    } else searchWiktionaryUseCase(searchTerm)
+                    val firstEntry = entries.firstOrNull()
+
+                    _state.update {
+                        it.copy(
+                            searchResult = entries.toPersistentList(),
+                            word = firstEntry?.word ?: "",
+                            searchSuggestions = persistentListOf()
+                        )
+                    }
+
+                    entries.forEach { entry ->
+                        cacheUseCases.cacheEntry(entry)
+                        cacheUseCases.cacheWordData(entry)
+                    }
+                    cacheUseCases.pruneCache()
+
+                    loadEtymology(searchTerm)
                 }
-            } else loadCachedWord(cachedEntry)
+            }
 
             _state.update { it.copy(isSearching = false) }
         } else errorChannel.send(HomeError.TermIsEmpty)
+    }
+
+    private suspend fun loadEtymology(
+        searchTerm: String
+    ) {
+        val etymology = getEtymologyUseCase(searchTerm)
+        _state.update { current ->
+            // Only apply if this etymology still belongs to the current word.
+            if (current.word.equals(searchTerm, ignoreCase = true) || current.word.isBlank()) {
+                current.copy(etymology = etymology)
+            } else current
+        }
     }
 
     private fun loadCachedWord(cachedEntries: List<Entry>) {
