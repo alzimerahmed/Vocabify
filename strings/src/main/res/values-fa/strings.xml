@@ -98,4 +98,5 @@
     <string name="app_icon">آیکن برنامه</string>
     <string name="app_icon_default">پیشفرض</string>
     <string name="app_icon_monochrome">تک‌رنگ</string>
+    <string name="wotd_notification_channel_description">هر روز یک واژه جدید نشان می‌دهد</string>
 </resources>

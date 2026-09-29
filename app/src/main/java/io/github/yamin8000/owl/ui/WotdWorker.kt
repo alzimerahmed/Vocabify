@@ -109,12 +109,12 @@ internal class WotdWorker(
          * safe to call on every app start; KEEP keeps the existing schedule.
          */
         fun schedule(context: Context) {
-            val request = androidx.work.PeriodicWorkRequestBuilder<WotdWorker>(1, TimeUnit.DAYS)
+            val request = PeriodicWorkRequestBuilder<WotdWorker>(1, TimeUnit.DAYS)
                 .setInitialDelay(initialDelayToNextMorning(), TimeUnit.MILLISECONDS)
                 .build()
-            androidx.work.WorkManager.getInstance(context).enqueueUniquePeriodicWork(
+            WorkManager.getInstance(context).enqueueUniquePeriodicWork(
                 UNIQUE_WORK_NAME,
-                androidx.work.ExistingPeriodicWorkPolicy.KEEP,
+                ExistingPeriodicWorkPolicy.KEEP,
                 request
             )
         }

@@ -98,4 +98,5 @@
     <string name="app_icon">एप आइकन</string>
     <string name="app_icon_default">डिफ़ॉल्ट</string>
     <string name="app_icon_monochrome">मोनोक्रोम</string>
+    <string name="wotd_notification_channel_description">हर दिन एक नया शब्द दिखाता है</string>
 </resources>

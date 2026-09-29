@@ -103,4 +103,5 @@
     <string name="app_icon">App icon</string>
     <string name="app_icon_default">Default</string>
     <string name="app_icon_monochrome">Monochrome</string>
+    <string name="wotd_notification_channel_description">Shows one new word every day</string>
 </resources>
