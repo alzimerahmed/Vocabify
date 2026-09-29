@@ -19,6 +19,8 @@
  *     along with freeDictionaryApp.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+@file:SuppressLint("StartActivityAndCollapseDeprecated") // Intent overload is the only option below API 34
+
 package io.github.yamin8000.owl.ui
 
 import android.app.PendingIntent
@@ -52,7 +54,6 @@ internal class OverlaySearchTileService : TileService() {
         }
     }
 
-    @SuppressLint("StartActivityAndCollapseDeprecated") // Intent overload is the only option below API 34
     private fun launchOverlay() {
         val intent = Intent(this, OverlayActivity::class.java)
             .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
