@@ -48,7 +48,7 @@ android {
         versionCode = 1
         versionName = "1.0.0"
         vectorDrawables.useSupportLibrary = true
-        base.archivesName = "$applicationId-v$versionCode-n$versionName"
+        base.archivesName = "Vocabify-v$versionName"
     }
 
     buildTypes {
