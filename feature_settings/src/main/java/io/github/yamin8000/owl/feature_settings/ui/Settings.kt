@@ -39,6 +39,7 @@ import androidx.compose.ui.tooling.preview.PreviewFontScale
 import androidx.compose.ui.tooling.preview.PreviewScreenSizes
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import io.github.yamin8000.owl.common.ui.adaptive.AdaptiveMaxWidthContent
 import io.github.yamin8000.owl.common.ui.components.AppText
 import io.github.yamin8000.owl.common.ui.components.ScaffoldWithTitle
 import io.github.yamin8000.owl.common.ui.theme.PreviewTheme
@@ -113,8 +114,11 @@ internal fun SettingsContent(
         title = stringResource(R.string.settings),
         onBackClick = onBackClick,
         content = {
-            Column(
-                modifier = Modifier.fillMaxWidth(),
+            // Readability cap: center + max-width the settings column on
+            // expanded windows (Phase 7).
+            AdaptiveMaxWidthContent {
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.spacedBy(
                     Sizes.Medium,
@@ -236,7 +240,8 @@ internal fun SettingsContent(
                         }
                     )
                 }
-            )
+                )
+            }
         }
     )
 }

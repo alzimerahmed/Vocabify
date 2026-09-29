@@ -21,9 +21,11 @@
 
 package io.github.yamin8000.owl.feature_home.ui.components.bottom_app_bar
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -35,11 +37,13 @@ import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
+import io.github.yamin8000.owl.common.ui.adaptive.AdaptiveLayout
 import io.github.yamin8000.owl.common.ui.components.ClickableIcon
 import io.github.yamin8000.owl.common.ui.components.AppText
 import io.github.yamin8000.owl.common.ui.theme.AppPreview
@@ -71,12 +75,18 @@ internal fun NormalBottomAppBar(
     BottomAppBar(
         modifier = modifier,
         content = {
-            TextField(
-                singleLine = true,
-                shape = CutCornerShape(topEnd = Sizes.Medium, topStart = Sizes.Medium),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = Sizes.Large),
+            // Cap the search field width and center it on expanded windows.
+            Box(
+                modifier = Modifier.fillMaxWidth(),
+                contentAlignment = Alignment.Center,
+                content = {
+                    TextField(
+                        singleLine = true,
+                        shape = CutCornerShape(topEnd = Sizes.Medium, topStart = Sizes.Medium),
+                        modifier = Modifier
+                            .widthIn(max = AdaptiveLayout.MaxContentWidth)
+                            .fillMaxWidth()
+                            .padding(horizontal = Sizes.Large),
                 label = {
                     AppText(
                         modifier = Modifier.fillMaxWidth(),
@@ -123,7 +133,8 @@ internal fun NormalBottomAppBar(
                     keyboardType = KeyboardType.Text,
                     capitalization = KeyboardCapitalization.None
                 )
-            )
+                    )
+                }
         }
     )
 }

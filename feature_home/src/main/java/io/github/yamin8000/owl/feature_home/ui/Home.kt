@@ -29,11 +29,16 @@ import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.TopAppBarDefaults
@@ -53,11 +58,15 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.repeatOnLifecycle
+import io.github.yamin8000.owl.common.ui.adaptive.AdaptiveLayout
+import io.github.yamin8000.owl.common.ui.adaptive.AdaptiveMaxWidthContent
+import io.github.yamin8000.owl.common.ui.adaptive.LocalWindowWidthSizeClass
 import io.github.yamin8000.owl.common.ui.components.AppText
 import io.github.yamin8000.owl.common.ui.components.EmptyList
 import io.github.yamin8000.owl.common.ui.components.MySnackbar
@@ -260,33 +269,83 @@ internal fun HomeContent(
             )
         },
         content = { contentPadding ->
+            // Two-pane (list-detail) word detail on expanded width (Phase 7).
+            val useTwoPane = AdaptiveLayout.shouldUseTwoPane(
+                LocalWindowWidthSizeClass.current
+            )
             if (state.searchResult.isNotEmpty()) {
                 val increaseVolumeText = stringResource(R.string.increase_volume_notice)
                 val context = LocalContext.current
                 val audio = remember {
                     context.findActivity()?.getSystemService(Context.AUDIO_SERVICE) as AudioManager?
                 }
-                SearchList(
-                    modifier = Modifier.padding(contentPadding),
-                    listState = listState,
-                    entries = state.searchResult,
-                    onAddToFavourite = { onAction(HomeAction.OnAddToFavourite(state.word)) },
-                    onExpandText = {
-                        onAction(HomeAction.OnExpandText(it))
-                    },
-                    onShareWord = { onAction(HomeAction.OnShareData) },
-                    isOnline = state.isOnline,
-                    word = state.word,
-                    etymology = state.etymology,
-                    onTextToSpeech = {
-                        if (audio?.getStreamVolume(AudioManager.STREAM_MUSIC) == 0) {
-                            Toast.makeText(context, increaseVolumeText, Toast.LENGTH_SHORT).show()
-                        } else {
-                            onAction(HomeAction.OnTextToSpeech(it))
+                val searchList: @Composable (Modifier, Dp) -> Unit = { listModifier, contentMaxWidth ->
+                    SearchList(
+                        modifier = listModifier,
+                        listState = listState,
+                        entries = state.searchResult,
+                        onAddToFavourite = { onAction(HomeAction.OnAddToFavourite(state.word)) },
+                        onExpandText = {
+                            onAction(HomeAction.OnExpandText(it))
+                        },
+                        onShareWord = { onAction(HomeAction.OnShareData) },
+                        isOnline = state.isOnline,
+                        word = state.word,
+                        etymology = state.etymology,
+                        contentMaxWidth = contentMaxWidth,
+                        onTextToSpeech = {
+                            if (audio?.getStreamVolume(AudioManager.STREAM_MUSIC) == 0) {
+                                Toast.makeText(context, increaseVolumeText, Toast.LENGTH_SHORT).show()
+                            } else {
+                                onAction(HomeAction.OnTextToSpeech(it))
+                            }
+                        },
+                        onPlayAudio = { onAction(HomeAction.OnPlayAudio(it)) }
+                    )
+                }
+                if (useTwoPane) {
+                    Row(
+                        modifier = Modifier
+                            .padding(contentPadding)
+                            .fillMaxHeight()
+                    ) {
+                        Column(
+                            modifier = Modifier
+                                .weight(0.38f)
+                                .fillMaxHeight()
+                                .verticalScroll(rememberScrollState())
+                                .padding(Sizes.Large),
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            verticalArrangement = Arrangement.spacedBy(
+                                Sizes.Large,
+                                Alignment.CenterVertically
+                            ),
+                            content = {
+                                if (state.wotdWord.isNotBlank()) {
+                                    WotdCard(
+                                        modifier = Modifier.fillMaxWidth(),
+                                        word = state.wotdWord,
+                                        onClick = {
+                                            onAction(HomeAction.NewSearch(state.wotdWord))
+                                        }
+                                    )
+                                }
+                                AppText(text = stringResource(R.string.search_hint))
+                            }
+                        )
+                        Box(modifier = Modifier.weight(0.62f)) {
+                            searchList(
+                                Modifier,
+                                AdaptiveLayout.MaxContentWidth
+                            )
                         }
-                    },
-                    onPlayAudio = { onAction(HomeAction.OnPlayAudio(it)) }
-                )
+                    }
+                } else {
+                    searchList(
+                        Modifier.padding(contentPadding),
+                        Dp.Unspecified
+                    )
+                }
 
                 if (state.isShowingExpandedTextDialog) {
                     ExpandedTextDialog(
@@ -297,23 +356,32 @@ internal fun HomeContent(
                     )
                 }
             } else {
-                Column(
-                    modifier = modifier.padding(Sizes.Large),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.spacedBy(
-                        Sizes.Large,
-                        Alignment.CenterVertically
-                    ),
+                AdaptiveMaxWidthContent(
+                    modifier = modifier.padding(contentPadding),
                     content = {
-                        if (state.wotdWord.isNotBlank()) {
-                            WotdCard(
-                                modifier = Modifier.fillMaxWidth(),
-                                word = state.wotdWord,
-                                onClick = { onAction(HomeAction.NewSearch(state.wotdWord)) }
-                            )
-                        }
-                        AppText(text = stringResource(R.string.search_hint))
-                        EmptyList()
+                        Column(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(Sizes.Large),
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            verticalArrangement = Arrangement.spacedBy(
+                                Sizes.Large,
+                                Alignment.CenterVertically
+                            ),
+                            content = {
+                                if (state.wotdWord.isNotBlank()) {
+                                    WotdCard(
+                                        modifier = Modifier.fillMaxWidth(),
+                                        word = state.wotdWord,
+                                        onClick = {
+                                            onAction(HomeAction.NewSearch(state.wotdWord))
+                                        }
+                                    )
+                                }
+                                AppText(text = stringResource(R.string.search_hint))
+                                EmptyList()
+                            }
+                        )
                     }
                 )
             }
