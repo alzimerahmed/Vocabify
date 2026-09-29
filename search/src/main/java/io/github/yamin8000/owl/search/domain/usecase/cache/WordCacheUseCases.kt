@@ -24,5 +24,6 @@ package io.github.yamin8000.owl.search.domain.usecase.cache
 data class WordCacheUseCases(
     val getCachedEntries: GetCachedEntries,
     val cacheEntry: CacheEntry,
-    val cacheWordData: CacheWordData
+    val cacheWordData: CacheWordData,
+    val pruneCache: PruneCache
 )

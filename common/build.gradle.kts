@@ -84,4 +84,6 @@ dependencies {
     //lottie
     implementation(libs.lottie.compose)
     debugApi(libs.datafaker)
+    //tests
+    testImplementation(libs.junit4)
 }

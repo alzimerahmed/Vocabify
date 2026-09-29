@@ -1,12 +1,15 @@
-# Vocabify — offline-friendly English dictionary for Android
+# Vocabify — offline-friendly dictionary for Android
 
 <div align="center">
 
+[![Platform](https://img.shields.io/badge/Platform-Android-3DDC84?logo=android&logoColor=white)](https://developer.android.com)
 [![Kotlin](https://img.shields.io/badge/Kotlin-2.4-7F52FF?logo=kotlin&logoColor=white)](https://kotlinlang.org)
 [![Compose](https://img.shields.io/badge/Jetpack%20Compose-Material%203-4285F4?logo=android&logoColor=white)](https://developer.android.com/compose)
+[![Release](https://img.shields.io/github/v/release/alzimerahmed/Vocabify?include_prereleases)](../../releases)
+[![CI](https://img.shields.io/github/actions/workflow/status/alzimerahmed/Vocabify/android.yml?label=CI)](../../actions/workflows/android.yml)
 [![License](https://img.shields.io/badge/License-GPL--3.0-blue.svg)](./LICENSE)
 
-*A clean, ad-free dictionary app built on freeDictionaryAPI and Wiktionary — definitions, pronunciation, history, favourites, and a persistent overlay search.*
+*A clean, ad-free dictionary built on freeDictionaryAPI and Wiktionary — definitions, pronunciation, learning mode, and a persistent overlay search, fully offline-capable.*
 
 [Download](#download) • [Features](#features) • [Tech Stack](#tech-stack) • [Building](#building)
 
@@ -18,16 +21,21 @@
 
 - English-to-English dictionary via [freeDictionaryAPI](https://dictionaryapi.dev/)
 - Multi-language to English lookup via the [Wiktionary](https://wiktionary.org) API (case-sensitive)
-- Definitions, usage examples, synonyms/antonyms where available
-- Pronunciation: IPA text plus audio via TTS
-- Search history and favourites, stored locally for offline reuse
+- Definitions, usage examples, synonyms/antonyms, and etymology where available
+- Pronunciation: IPA text plus audio via text-to-speech and speech-to-text search input
+- Search history and favourites, cached locally for offline reuse with an offline banner
+- Flashcards learning mode built on your favourites
+- Word of the day: daily notification plus home-screen widget with search
+- Share-to-search: send text from any app straight into Vocabify
+- Quick Settings tile for the persistent overlay (bubble) search
+- Backup and restore: export and import your history and favourites
 - Random word discovery
-- Persistent overlay (bubble) search from any app
 - Material 3 / Material You with dynamic color, dark, light, and OLED themes
+- Adaptive layouts for phones, tablets, and landscape
 
 ## Screenshots
 
-See [`screenshots/`](./screenshots) and the Fastlane metadata images for current captures.
+See the [Fastlane metadata images](./fastlane/metadata/android/en-US/images) for current captures.
 
 ## Tech Stack
 
@@ -38,7 +46,7 @@ See [`screenshots/`](./screenshots) and the Fastlane metadata images for current
 | Architecture | Clean Architecture, MVI/MVVM, feature modules |
 | DI | Hilt (KSP) |
 | Networking | Retrofit 3 + Moshi (KSP codegen), Jsoup |
-| Persistence | Room, DataStore Preferences |
+| Persistence | Room, DataStore Preferences, WorkManager |
 | Media | Coil, Lottie, TTS |
 | Build | Gradle (Kotlin DSL), AGP 9.4, version catalog |
 
@@ -53,6 +61,7 @@ search/              dictionary API layer (Retrofit/Moshi/Jsoup)
 feature_home/        word search screen
 feature_history/     search history
 feature_favourites/  saved words
+feature_learning/    flashcards learning mode
 feature_overlay/     bubble overlay search
 feature_settings/    app settings
 feature_about/       about screen
@@ -60,12 +69,12 @@ feature_about/       about screen
 
 ## Download
 
-- GitHub Releases: see the [Releases](../../releases) page of this repository
+Grab the latest signed APK from the [Releases](../../releases) page. Every release is built and signed by CI from a version tag.
 
 ## Building
 
 ```bash
-git clone <this repository>
+git clone https://github.com/alzimerahmed/Vocabify
 ./gradlew build          # requires JDK 21 + Android SDK
 ```
 
@@ -78,7 +87,7 @@ The release workflow (`.github/workflows/release.yml`) builds a signed APK on ta
 
 ## Usage
 
-Type a word into the search input. Results show definitions, examples, synonyms/antonyms, and IPA; tap the pronunciation control to hear the word via TTS. Long-press or use the menu to favourite a word or search a random one.
+Type a word into the search input. Results show definitions, examples, synonyms/antonyms, etymology, and IPA; tap the pronunciation control to hear the word via TTS. Long-press or use the menu to favourite a word, search a random one, or start flashcards from your favourites. Share text from any app to look it up instantly, or enable the overlay bubble to search without leaving your current app.
 
 ## Contributing
 
@@ -86,9 +95,13 @@ Fork the repo, create a feature branch, and open a pull request against `master`
 
 ## Roadmap
 
-- [ ] Feature pipeline tracked in the internal `docs/plan.md`
 - [ ] Additional source languages for Wiktionary lookup
-- [ ] Word-of-the-day widget
+- [ ] More learning-mode drills (spaced repetition)
+- [ ] F-Droid / IzzyOnDroid distribution
+
+## Changelog
+
+See [GitHub Releases](../../releases) for version history.
 
 ## License
 

@@ -26,6 +26,11 @@ object SettingsKeys {
     const val TTS_LANG = "tts_lang"
     const val IS_VIBRATING = "is_vibrating"
     const val IS_STARTING_BLANK = "is_starting_blank"
+    const val IS_DYNAMIC_COLOR = "is_dynamic_color"
+    const val IS_WOTD_NOTIFICATION = "is_wotd_notification"
+    const val ICON_VARIANT = "icon_variant"
+    const val WOTD_WORD = "wotd_word"
+    const val WOTD_DATE = "wotd_date"
 
     data object DictionarySource
 }

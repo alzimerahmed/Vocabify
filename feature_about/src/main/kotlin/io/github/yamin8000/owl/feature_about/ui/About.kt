@@ -41,6 +41,7 @@ import androidx.compose.ui.tooling.preview.PreviewFontScale
 import androidx.compose.ui.tooling.preview.PreviewScreenSizes
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import io.github.yamin8000.owl.common.ui.adaptive.AdaptiveMaxWidthContent
 import io.github.yamin8000.owl.common.ui.components.AppText
 import io.github.yamin8000.owl.common.ui.components.ScaffoldWithTitle
 import io.github.yamin8000.owl.common.ui.theme.PreviewTheme
@@ -117,8 +118,12 @@ internal fun AboutContent(
         title = stringResource(R.string.about),
         onBackClick = onBackClick,
         content = {
-            Column(
-                modifier = Modifier.fillMaxSize(),
+            // Readability cap on expanded windows (Phase 7).
+            AdaptiveMaxWidthContent(
+                modifier = Modifier.fillMaxSize()
+            ) {
+                Column(
+                    modifier = Modifier.fillMaxSize(),
                 verticalArrangement = Arrangement.spacedBy(Sizes.Small, Alignment.Top),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 content = {
@@ -157,7 +162,8 @@ internal fun AboutContent(
                         AboutTab.Contributors -> AboutContributors(contributors = state.contributors)
                     }
                 }
-            )
+                )
+            }
         }
     )
 }

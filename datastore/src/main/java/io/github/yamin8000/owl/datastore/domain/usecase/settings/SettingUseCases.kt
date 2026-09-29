@@ -31,5 +31,15 @@ data class SettingUseCases(
     val getStartingBlank: GetStartingBlank,
     val setStartingBlank: SetStartingBlank,
     val getSource: GetDictionarySource,
-    val setSource: SetDictionarySource
+    val setSource: SetDictionarySource,
+    val getDynamicColor: GetDynamicColor,
+    val setDynamicColor: SetDynamicColor,
+    val getWotdNotification: GetWotdNotification,
+    val setWotdNotification: SetWotdNotification,
+    val getIconVariant: GetIconVariant,
+    val setIconVariant: SetIconVariant,
+    val getWotdWord: GetWotdWord,
+    val setWotdWord: SetWotdWord,
+    val getWotdDate: GetWotdDate,
+    val setWotdDate: SetWotdDate
 )

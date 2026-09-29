@@ -50,6 +50,17 @@ class EntryRoomRepository(
         return dao.where("word", sanitizeWord(term)).mapNotNull { mapToDomain(it) }
     }
 
+    override suspend fun prune(maxEntries: Int): Int {
+        if (maxEntries <= 0) return 0
+        val entities = dao.all()
+        val toRemove = entities
+            .sortedByDescending { it.createdAt }
+            .drop(maxEntries)
+        if (toRemove.isEmpty()) return 0
+        dao.deleteAll(toRemove)
+        return toRemove.size
+    }
+
     override suspend fun mapToDomain(item: EntryEntity?): Entry? {
         return if (item != null) {
             Entry(

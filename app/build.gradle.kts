@@ -45,8 +45,8 @@ android {
         applicationId = appId
         minSdk = 24
         targetSdk = 37
-        versionCode = 58
-        versionName = "1.8.4"
+        versionCode = 1
+        versionName = "1.0.0"
         vectorDrawables.useSupportLibrary = true
         base.archivesName = "$applicationId-v$versionCode-n$versionName"
     }
@@ -100,11 +100,14 @@ dependencies {
     implementation(project(":feature_settings"))
     implementation(project(":feature_history"))
     implementation(project(":feature_favourites"))
+    implementation(project(":feature_learning"))
     implementation(project(":feature_overlay"))
     implementation(project(":feature_about"))
     //core android/kotlin
     coreLibraryDesugaring(libs.desugar.jdk.libs)
     implementation(libs.androidx.core.splashscreen)
+    //workmanager (word-of-the-day daily notification, Feature 1)
+    implementation(libs.androidx.work.runtime)
     //navigation
     implementation(libs.androidx.navigation.compose)
     //hilt
