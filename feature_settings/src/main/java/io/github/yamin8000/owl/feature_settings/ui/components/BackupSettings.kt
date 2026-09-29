@@ -44,7 +44,9 @@ import io.github.yamin8000.owl.common.ui.components.AppText
 import io.github.yamin8000.owl.common.ui.theme.Sizes
 import io.github.yamin8000.owl.feature_settings.ui.BackupStatus
 import io.github.yamin8000.owl.strings.R
-import java.time.LocalDate
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 /**
  * Backup/restore card: exports search history + favourites to a JSON
@@ -145,6 +147,6 @@ internal fun BackupSettings(
 }
 
 private fun backupFileName(): String {
-    val date = LocalDate.now()
-    return "vocabify-backup-$date.json"
+    val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.US)
+    return "vocabify-backup-${dateFormat.format(Date())}.json"
 }
