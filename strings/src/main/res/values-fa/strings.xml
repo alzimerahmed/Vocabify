@@ -99,5 +99,6 @@
     <string name="app_icon_default">پیشفرض</string>
     <string name="app_icon_monochrome">تک‌رنگ</string>
     <string name="wotd_notification_channel_description">هر روز یک واژه جدید نشان می‌دهد</string>
-    <string name="('wotd_widget_word_description', 'واژه امروز، برای جستجو بزنید')">('wotd_widget_search_description', 'باز کردن جستجو')</string>
+    <string name="wotd_widget_word_description">واژه امروز، برای جستجو بزنید</string>
+    <string name="wotd_widget_search_description">باز کردن جستجو</string>
 </resources>

@@ -99,5 +99,6 @@
     <string name="app_icon_default">डिफ़ॉल्ट</string>
     <string name="app_icon_monochrome">मोनोक्रोम</string>
     <string name="wotd_notification_channel_description">हर दिन एक नया शब्द दिखाता है</string>
-    <string name="('wotd_widget_word_description', 'आज का शब्द, खोजने के लिए टैप करें')">('wotd_widget_search_description', 'Vocabify खोलें')</string>
+    <string name="wotd_widget_word_description">आज का शब्द, खोजने के लिए टैप करें</string>
+    <string name="wotd_widget_search_description">सर्च खोलें</string>
 </resources>

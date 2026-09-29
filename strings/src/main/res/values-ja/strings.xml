@@ -99,5 +99,6 @@
     <string name="app_icon_default">デフォルト</string>
     <string name="app_icon_monochrome">モノクローム</string>
     <string name="wotd_notification_channel_description">毎日新しい単語をお知らせします</string>
-    <string name="('wotd_widget_word_description', '今日の単語、タップして検索')">('wotd_widget_search_description', 'Vocabifyを開く')</string>
+    <string name="wotd_widget_word_description">今日の単語、タップして検索</string>
+    <string name="wotd_widget_search_description">検索を開く</string>
 </resources>
