@@ -21,9 +21,10 @@
 
 package io.github.yamin8000.owl.feature_learning
 
+import io.github.yamin8000.owl.feature_learning.domain.Deck
 import io.github.yamin8000.owl.feature_learning.domain.DeckState
 
 data class LearningState(
-    val deck: DeckState = DeckState(emptyList(), emptyList(), 0),
+    val deck: DeckState = Deck.create(emptyList()),
     val isLoading: Boolean = true
 )
