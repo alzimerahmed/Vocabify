@@ -32,6 +32,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import io.github.yamin8000.owl.common.ui.adaptive.AdaptiveMaxWidthContent
 import io.github.yamin8000.owl.common.ui.components.EmptyList
 import io.github.yamin8000.owl.common.ui.components.ScaffoldWithTitle
 import io.github.yamin8000.owl.common.ui.theme.PreviewTheme
@@ -83,31 +84,33 @@ fun <T> CrudContent(
         content = {
             val isNotEmpty by remember(items.size) { mutableStateOf(items.isNotEmpty()) }
             if (isNotEmpty) {
-                LazyColumn(
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.spacedBy(
-                        Sizes.Medium,
-                        Alignment.CenterVertically
-                    ),
-                    content = {
-                        item {
-                            RemoveAllContent(
-                                modifier = Modifier.fillMaxWidth(),
-                                onRemoveAllClick = onRemoveAll
-                            )
-                        }
-                        items(
-                            items = items,
-                            itemContent = { item ->
-                                CrudItem(
-                                    item = itemDisplayProvider(item),
-                                    onClick = { onItemClick(item) },
-                                    onLongClick = { onRemoveSingle(item) }
+                AdaptiveMaxWidthContent {
+                    LazyColumn(
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.spacedBy(
+                            Sizes.Medium,
+                            Alignment.CenterVertically
+                        ),
+                        content = {
+                            item {
+                                RemoveAllContent(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    onRemoveAllClick = onRemoveAll
                                 )
                             }
-                        )
-                    }
-                )
+                            items(
+                                items = items,
+                                itemContent = { item ->
+                                    CrudItem(
+                                        item = itemDisplayProvider(item),
+                                        onClick = { onItemClick(item) },
+                                        onLongClick = { onRemoveSingle(item) }
+                                    )
+                                }
+                            )
+                        }
+                    )
+                }
             } else emptyContent()
         }
     )

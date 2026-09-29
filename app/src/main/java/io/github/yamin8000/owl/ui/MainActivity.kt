@@ -30,7 +30,10 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.scaleIn
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
+import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.remember
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
@@ -46,6 +49,7 @@ import io.github.yamin8000.owl.feature_home.di.HomeViewModelFactory
 import io.github.yamin8000.owl.feature_home.ui.HomeScreen
 import io.github.yamin8000.owl.feature_home.ui.HomeViewModel
 import io.github.yamin8000.owl.feature_settings.ui.SettingsScreen
+import io.github.yamin8000.owl.common.ui.adaptive.LocalWindowWidthSizeClass
 import io.github.yamin8000.owl.ui.navigation.Nav
 
 internal class MainActivity : BaseActivity() {
@@ -54,6 +58,7 @@ internal class MainActivity : BaseActivity() {
 
     @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
     @ExperimentalMaterial3Api
+    @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
 
@@ -64,11 +69,18 @@ internal class MainActivity : BaseActivity() {
         intentSearch = intent.getStringExtra("Search")
 
         showContent {
-            Scaffold {
-                MainNav(
-                    onThemeChanged = { appTheme = it },
-                    onDynamicColorChanged = { appIsDynamicColor = it }
-                )
+            // Window size class drives adaptive layouts (Phase 7); recomputed
+            // automatically on configuration changes (rotation, fold, resize).
+            val windowSizeClass = calculateWindowSizeClass(this@MainActivity)
+            CompositionLocalProvider(
+                LocalWindowWidthSizeClass provides windowSizeClass.widthSizeClass
+            ) {
+                Scaffold {
+                    MainNav(
+                        onThemeChanged = { appTheme = it },
+                        onDynamicColorChanged = { appIsDynamicColor = it }
+                    )
+                }
             }
         }
     }

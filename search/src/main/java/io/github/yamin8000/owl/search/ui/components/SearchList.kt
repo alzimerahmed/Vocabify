@@ -38,6 +38,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
+import androidx.compose.ui.unit.Dp
+import io.github.yamin8000.owl.common.ui.adaptive.AdaptiveMaxWidthContent
 import io.github.yamin8000.owl.common.ui.components.OfflineBanner
 import io.github.yamin8000.owl.common.ui.theme.AppPreview
 import io.github.yamin8000.owl.common.ui.theme.PreviewTheme
@@ -78,15 +80,19 @@ fun SearchList(
     entries: ImmutableList<Entry>,
     modifier: Modifier = Modifier,
     etymology: String? = null,
-    listState: LazyListState = rememberLazyListState()
+    listState: LazyListState = rememberLazyListState(),
+    contentMaxWidth: Dp = Dp.Unspecified
 ) {
-    LazyColumn(
+    AdaptiveMaxWidthContent(
         modifier = modifier,
-        state = listState,
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(Sizes.Small, Alignment.CenterVertically),
-        contentPadding = PaddingValues(Sizes.Medium),
+        maxWidth = contentMaxWidth,
         content = {
+            LazyColumn(
+                state = listState,
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(Sizes.Small, Alignment.CenterVertically),
+                contentPadding = PaddingValues(Sizes.Medium),
+                content = {
             item(
                 key = isOnline,
                 content = {
@@ -140,6 +146,8 @@ fun SearchList(
                         onTextToSpeech = onTextToSpeech
                     )
                 }
+            )
+            }
             )
         }
     )
