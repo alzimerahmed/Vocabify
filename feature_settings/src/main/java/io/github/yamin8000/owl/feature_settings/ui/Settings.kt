@@ -39,14 +39,19 @@ import androidx.compose.ui.tooling.preview.PreviewFontScale
 import androidx.compose.ui.tooling.preview.PreviewScreenSizes
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import io.github.yamin8000.owl.common.ui.adaptive.AdaptiveMaxWidthContent
 import io.github.yamin8000.owl.common.ui.components.AppText
 import io.github.yamin8000.owl.common.ui.components.ScaffoldWithTitle
 import io.github.yamin8000.owl.common.ui.theme.PreviewTheme
 import io.github.yamin8000.owl.common.ui.theme.Sizes
 import io.github.yamin8000.owl.datastore.domain.model.ThemeType
+import io.github.yamin8000.owl.feature_settings.ui.components.BackupSettings
 import io.github.yamin8000.owl.feature_settings.ui.components.DictionarySourceSettings
+import io.github.yamin8000.owl.feature_settings.ui.components.DynamicColorSetting
 import io.github.yamin8000.owl.feature_settings.ui.components.GeneralSettings
+import io.github.yamin8000.owl.feature_settings.ui.components.IconVariantSetting
 import io.github.yamin8000.owl.feature_settings.ui.components.SettingsItemCard
+import io.github.yamin8000.owl.feature_settings.ui.components.WotdNotificationSetting
 import io.github.yamin8000.owl.feature_settings.ui.components.theme.ThemeSetting
 import io.github.yamin8000.owl.feature_settings.ui.components.tts.TtsLanguageSetting
 import io.github.yamin8000.owl.feature_settings.utils.Utility.resourceName
@@ -80,6 +85,7 @@ fun SettingsScreen(
     modifier: Modifier = Modifier,
     vm: SettingsViewModel = hiltViewModel(),
     onThemeChanged: (ThemeType) -> Unit,
+    onDynamicColorChanged: (Boolean) -> Unit = {},
     onBackClick: () -> Unit
 ) {
     val state = vm.state.collectAsStateWithLifecycle().value
@@ -89,6 +95,7 @@ fun SettingsScreen(
         state = state,
         onAction = { vm.onAction(it) },
         onThemeChanged = onThemeChanged,
+        onDynamicColorChanged = onDynamicColorChanged,
         onBackClick = onBackClick
     )
 }
@@ -99,15 +106,19 @@ internal fun SettingsContent(
     onAction: (SettingsAction) -> Unit,
     onThemeChanged: (ThemeType) -> Unit,
     onBackClick: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onDynamicColorChanged: (Boolean) -> Unit = {}
 ) {
     ScaffoldWithTitle(
         modifier = modifier,
         title = stringResource(R.string.settings),
         onBackClick = onBackClick,
         content = {
-            Column(
-                modifier = Modifier.fillMaxWidth(),
+            // Readability cap: center + max-width the settings column on
+            // expanded windows (Phase 7).
+            AdaptiveMaxWidthContent {
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.spacedBy(
                     Sizes.Medium,
@@ -170,6 +181,25 @@ internal fun SettingsContent(
                                             onThemeChanged(newTheme)
                                         }
                                     )
+                                    DynamicColorSetting(
+                                        isDynamicColor = state.isDynamicColor,
+                                        onDynamicColorChange = {
+                                            onAction(SettingsAction.OnDynamicColorChange(it))
+                                            onDynamicColorChanged(it)
+                                        }
+                                    )
+                                    WotdNotificationSetting(
+                                        isEnabled = state.isWotdNotification,
+                                        onEnabledChange = {
+                                            onAction(SettingsAction.OnWotdNotificationChange(it))
+                                        }
+                                    )
+                                    IconVariantSetting(
+                                        currentVariant = state.iconVariant,
+                                        onVariantChange = {
+                                            onAction(SettingsAction.OnIconVariantChange(it))
+                                        }
+                                    )
                                 }
 
                                 SettingsTab.Advanced -> {
@@ -196,12 +226,22 @@ internal fun SettingsContent(
                                             )
                                         }
                                     )
+                                    BackupSettings(
+                                        backupStatus = state.backupStatus,
+                                        backupJson = state.backupJson,
+                                        onExport = { onAction(SettingsAction.OnExportData) },
+                                        onImport = { onAction(SettingsAction.OnImportData(it)) },
+                                        onBackupJsonConsumed = {
+                                            onAction(SettingsAction.OnBackupJsonConsumed)
+                                        }
+                                    )
                                 }
                             }
                         }
                     )
                 }
-            )
+                )
+            }
         }
     )
 }

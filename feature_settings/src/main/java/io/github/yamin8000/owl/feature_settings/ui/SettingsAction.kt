@@ -22,6 +22,7 @@
 package io.github.yamin8000.owl.feature_settings.ui
 
 import io.github.yamin8000.owl.common.domain.model.DictionarySource
+import io.github.yamin8000.owl.datastore.domain.model.IconVariant
 import io.github.yamin8000.owl.datastore.domain.model.ThemeType
 
 sealed interface SettingsAction {
@@ -31,4 +32,10 @@ sealed interface SettingsAction {
     data class OnThemeChange(val newTheme: ThemeType) : SettingsAction
     data class OnSourceChanged(val source: DictionarySource) : SettingsAction
     data class OnTabChanged(val newTab: SettingsTab) : SettingsAction
+    data object OnExportData : SettingsAction
+    data class OnImportData(val json: String) : SettingsAction
+    data object OnBackupJsonConsumed : SettingsAction
+    data class OnDynamicColorChange(val value: Boolean) : SettingsAction
+    data class OnWotdNotificationChange(val value: Boolean) : SettingsAction
+    data class OnIconVariantChange(val variant: IconVariant) : SettingsAction
 }

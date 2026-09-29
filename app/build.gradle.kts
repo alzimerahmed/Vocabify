@@ -100,11 +100,14 @@ dependencies {
     implementation(project(":feature_settings"))
     implementation(project(":feature_history"))
     implementation(project(":feature_favourites"))
+    implementation(project(":feature_learning"))
     implementation(project(":feature_overlay"))
     implementation(project(":feature_about"))
     //core android/kotlin
     coreLibraryDesugaring(libs.desugar.jdk.libs)
     implementation(libs.androidx.core.splashscreen)
+    //workmanager (word-of-the-day daily notification, Feature 1)
+    implementation(libs.androidx.work.runtime)
     //navigation
     implementation(libs.androidx.navigation.compose)
     //hilt

@@ -26,6 +26,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import com.squareup.moshi.Moshi
 import io.github.yamin8000.owl.datastore.data.datasource.Datastore.favouritesDataStore
 import io.github.yamin8000.owl.datastore.data.datasource.Datastore.historyDataStore
 import io.github.yamin8000.owl.datastore.data.datasource.Datastore.settingsDataStore
@@ -35,6 +36,9 @@ import io.github.yamin8000.owl.datastore.data.repository.SettingsDatastoreReposi
 import io.github.yamin8000.owl.datastore.domain.repository.FavouriteRepository
 import io.github.yamin8000.owl.datastore.domain.repository.HistoryRepository
 import io.github.yamin8000.owl.datastore.domain.repository.SettingsRepository
+import io.github.yamin8000.owl.datastore.domain.usecase.backup.BackupUseCases
+import io.github.yamin8000.owl.datastore.domain.usecase.backup.ExportUserData
+import io.github.yamin8000.owl.datastore.domain.usecase.backup.ImportUserData
 import io.github.yamin8000.owl.datastore.domain.usecase.favourites.AddFavourite
 import io.github.yamin8000.owl.datastore.domain.usecase.favourites.FavouriteUseCases
 import io.github.yamin8000.owl.datastore.domain.usecase.favourites.GetAllFavourite
@@ -46,15 +50,25 @@ import io.github.yamin8000.owl.datastore.domain.usecase.history.HistoryUseCases
 import io.github.yamin8000.owl.datastore.domain.usecase.history.RemoveAllHistory
 import io.github.yamin8000.owl.datastore.domain.usecase.history.RemoveHistory
 import io.github.yamin8000.owl.datastore.domain.usecase.settings.GetDictionarySource
+import io.github.yamin8000.owl.datastore.domain.usecase.settings.GetDynamicColor
+import io.github.yamin8000.owl.datastore.domain.usecase.settings.GetIconVariant
 import io.github.yamin8000.owl.datastore.domain.usecase.settings.GetStartingBlank
 import io.github.yamin8000.owl.datastore.domain.usecase.settings.GetTTS
 import io.github.yamin8000.owl.datastore.domain.usecase.settings.GetTheme
 import io.github.yamin8000.owl.datastore.domain.usecase.settings.GetVibration
+import io.github.yamin8000.owl.datastore.domain.usecase.settings.GetWotdDate
+import io.github.yamin8000.owl.datastore.domain.usecase.settings.GetWotdNotification
+import io.github.yamin8000.owl.datastore.domain.usecase.settings.GetWotdWord
 import io.github.yamin8000.owl.datastore.domain.usecase.settings.SetDictionarySource
+import io.github.yamin8000.owl.datastore.domain.usecase.settings.SetDynamicColor
+import io.github.yamin8000.owl.datastore.domain.usecase.settings.SetIconVariant
 import io.github.yamin8000.owl.datastore.domain.usecase.settings.SetStartingBlank
 import io.github.yamin8000.owl.datastore.domain.usecase.settings.SetTTS
 import io.github.yamin8000.owl.datastore.domain.usecase.settings.SetTheme
 import io.github.yamin8000.owl.datastore.domain.usecase.settings.SetVibration
+import io.github.yamin8000.owl.datastore.domain.usecase.settings.SetWotdDate
+import io.github.yamin8000.owl.datastore.domain.usecase.settings.SetWotdNotification
+import io.github.yamin8000.owl.datastore.domain.usecase.settings.SetWotdWord
 import io.github.yamin8000.owl.datastore.domain.usecase.settings.SettingUseCases
 import javax.inject.Singleton
 
@@ -81,7 +95,17 @@ object DatastoreModule {
             getStartingBlank = GetStartingBlank(repository),
             setStartingBlank = SetStartingBlank(repository),
             getSource = GetDictionarySource(repository),
-            setSource = SetDictionarySource(repository)
+            setSource = SetDictionarySource(repository),
+            getDynamicColor = GetDynamicColor(repository),
+            setDynamicColor = SetDynamicColor(repository),
+            getWotdNotification = GetWotdNotification(repository),
+            setWotdNotification = SetWotdNotification(repository),
+            getIconVariant = GetIconVariant(repository),
+            setIconVariant = SetIconVariant(repository),
+            getWotdWord = GetWotdWord(repository),
+            setWotdWord = SetWotdWord(repository),
+            getWotdDate = GetWotdDate(repository),
+            setWotdDate = SetWotdDate(repository)
         )
     }
 
@@ -118,4 +142,21 @@ object DatastoreModule {
             getAllFavourite = GetAllFavourite(repository)
         )
     }
+
+    @Provides
+    @Singleton
+    fun providesBackupUseCases(
+        historyRepository: HistoryRepository,
+        favouriteRepository: FavouriteRepository,
+        moshi: Moshi
+    ): BackupUseCases {
+        return BackupUseCases(
+            exportUserData = ExportUserData(historyRepository, favouriteRepository, moshi),
+            importUserData = ImportUserData(historyRepository, favouriteRepository, moshi)
+        )
+    }
+
+    @Provides
+    @Singleton
+    fun providesMoshi(): Moshi = Moshi.Builder().build()
 }

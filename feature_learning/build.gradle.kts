@@ -1,0 +1,74 @@
+/*
+ *     freeDictionaryApp/freeDictionaryApp.feature_learning
+ *     build.gradle.kts Copyrighted by Yamin Siahmargooei at 2026/1/1
+ *     build.gradle.kts Last modified at 2026/1/1
+ *     This file is part of freeDictionaryApp/freeDictionaryApp.feature_learning.
+ *     Copyright (C) 2024  Yamin Siahmargooei
+ *
+ *     freeDictionaryApp/freeDictionaryApp.feature_learning is free software: you can redistribute it and/or modify
+ *     it under the terms of the GNU General Public License as published by
+ *     the Free Software Foundation, either version 3 of the License, or
+ *     (at your option) any later version.
+ *
+ *     freeDictionaryApp/freeDictionaryApp.feature_learning is distributed in the hope that it will be useful,
+ *     but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *     GNU General Public License for more details.
+ *
+ *     You should have received a copy of the GNU General Public License
+ *     along with freeDictionaryApp.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
+plugins {
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.google.ksp)
+    alias(libs.plugins.jetbrains.kotlin.compose.plugin)
+    alias(libs.plugins.hilt)
+}
+
+android {
+    namespace = "io.github.yamin8000.owl.feature_learning"
+    compileSdk = 37
+
+    defaultConfig {
+        minSdk = 24
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
+    }
+
+    kotlin {
+        compilerOptions {
+            jvmTarget = JvmTarget.JVM_21
+        }
+    }
+
+    buildFeatures {
+        compose = true
+    }
+}
+
+composeCompiler {
+    reportsDestination = layout.buildDirectory.dir("compose_compiler")
+    metricsDestination = layout.buildDirectory.dir("compose_compiler")
+}
+
+dependencies {
+    implementation(project(":common"))
+    implementation(project(":datastore"))
+    implementation(project(":search"))
+    //hilt
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.android.compiler)
+    implementation(libs.hilt.lifecycle.compose)
+    //tests
+    testImplementation(libs.junit4)
+    testImplementation(libs.mockk)
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.turbine)
+    testImplementation(libs.robolectric)
+}

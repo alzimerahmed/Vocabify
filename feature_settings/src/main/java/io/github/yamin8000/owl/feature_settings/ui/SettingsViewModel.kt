@@ -25,6 +25,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.github.yamin8000.owl.common.util.TTS
+import io.github.yamin8000.owl.datastore.domain.usecase.backup.BackupUseCases
 import io.github.yamin8000.owl.datastore.domain.usecase.settings.SettingUseCases
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -40,6 +41,7 @@ import kotlin.time.Duration.Companion.seconds
 @HiltViewModel
 class SettingsViewModel @Inject constructor(
     private val useCases: SettingUseCases,
+    private val backupUseCases: BackupUseCases,
     private val tts: TTS,
 ) : ViewModel() {
     private val scope = viewModelScope
@@ -53,6 +55,9 @@ class SettingsViewModel @Inject constructor(
                 isVibrating = useCases.getVibration(),
                 isStartingBlank = useCases.getStartingBlank(),
                 source = useCases.getSource(),
+                isDynamicColor = useCases.getDynamicColor(),
+                isWotdNotification = useCases.getWotdNotification(),
+                iconVariant = useCases.getIconVariant(),
                 languages = tts.languages().toImmutableList(),
                 isTtsAvailable = tts.engine != null
             )
@@ -92,6 +97,59 @@ class SettingsViewModel @Inject constructor(
 
             is SettingsAction.OnTabChanged -> {
                 _state.update { it.copy(currentTab = action.newTab) }
+            }
+
+            SettingsAction.OnExportData -> {
+                scope.launch {
+                    val json = try {
+                        backupUseCases.exportUserData()
+                    } catch (ignored: Exception) {
+                        null
+                    }
+                    _state.update {
+                        it.copy(
+                            backupJson = json,
+                            backupStatus = if (json != null) BackupStatus.Exported else BackupStatus.InvalidFile
+                        )
+                    }
+                }
+            }
+
+            is SettingsAction.OnImportData -> {
+                scope.launch {
+                    val imported = try {
+                        backupUseCases.importUserData(action.json)
+                    } catch (ignored: Exception) {
+                        null
+                    }
+                    _state.update {
+                        it.copy(
+                            backupStatus = when {
+                                imported == null -> BackupStatus.InvalidFile
+                                else -> BackupStatus.Imported(imported)
+                            }
+                        )
+                    }
+                }
+            }
+
+            SettingsAction.OnBackupJsonConsumed -> {
+                _state.update { it.copy(backupJson = null) }
+            }
+
+            is SettingsAction.OnDynamicColorChange -> {
+                _state.update { it.copy(isDynamicColor = action.value) }
+                scope.launch { useCases.setDynamicColor(action.value) }
+            }
+
+            is SettingsAction.OnWotdNotificationChange -> {
+                _state.update { it.copy(isWotdNotification = action.value) }
+                scope.launch { useCases.setWotdNotification(action.value) }
+            }
+
+            is SettingsAction.OnIconVariantChange -> {
+                _state.update { it.copy(iconVariant = action.variant) }
+                scope.launch { useCases.setIconVariant(action.variant) }
             }
         }
     }

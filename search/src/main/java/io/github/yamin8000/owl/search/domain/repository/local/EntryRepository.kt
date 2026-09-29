@@ -26,4 +26,11 @@ import io.github.yamin8000.owl.search.domain.repository.local.util.BaseRepositor
 
 interface EntryRepository : BaseRepository<Entry> {
     suspend fun findByTerm(term: String): List<Entry>
+
+    /**
+     * Keeps only the [maxEntries] most recently cached entries
+     * (by creation time) and removes the rest.
+     * Returns the number of removed entries.
+     */
+    suspend fun prune(maxEntries: Int): Int
 }
