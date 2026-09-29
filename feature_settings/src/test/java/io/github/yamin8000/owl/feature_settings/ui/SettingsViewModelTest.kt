@@ -27,15 +27,25 @@ import io.github.yamin8000.owl.datastore.domain.usecase.backup.BackupUseCases
 import io.github.yamin8000.owl.datastore.domain.model.IconVariant
 import io.github.yamin8000.owl.datastore.domain.model.ThemeType
 import io.github.yamin8000.owl.datastore.domain.usecase.settings.GetDictionarySource
+import io.github.yamin8000.owl.datastore.domain.usecase.settings.GetDynamicColor
+import io.github.yamin8000.owl.datastore.domain.usecase.settings.GetIconVariant
 import io.github.yamin8000.owl.datastore.domain.usecase.settings.GetStartingBlank
 import io.github.yamin8000.owl.datastore.domain.usecase.settings.GetTheme
 import io.github.yamin8000.owl.datastore.domain.usecase.settings.GetTTS
 import io.github.yamin8000.owl.datastore.domain.usecase.settings.GetVibration
+import io.github.yamin8000.owl.datastore.domain.usecase.settings.GetWotdDate
+import io.github.yamin8000.owl.datastore.domain.usecase.settings.GetWotdNotification
+import io.github.yamin8000.owl.datastore.domain.usecase.settings.GetWotdWord
 import io.github.yamin8000.owl.datastore.domain.usecase.settings.SetDictionarySource
+import io.github.yamin8000.owl.datastore.domain.usecase.settings.SetDynamicColor
+import io.github.yamin8000.owl.datastore.domain.usecase.settings.SetIconVariant
 import io.github.yamin8000.owl.datastore.domain.usecase.settings.SetStartingBlank
 import io.github.yamin8000.owl.datastore.domain.usecase.settings.SetTheme
 import io.github.yamin8000.owl.datastore.domain.usecase.settings.SetTTS
 import io.github.yamin8000.owl.datastore.domain.usecase.settings.SetVibration
+import io.github.yamin8000.owl.datastore.domain.usecase.settings.SetWotdDate
+import io.github.yamin8000.owl.datastore.domain.usecase.settings.SetWotdNotification
+import io.github.yamin8000.owl.datastore.domain.usecase.settings.SetWotdWord
 import io.github.yamin8000.owl.datastore.domain.usecase.settings.SettingUseCases
 import io.mockk.coEvery
 import io.mockk.coVerify
@@ -70,6 +80,16 @@ class SettingsViewModelTest {
     private val setStartingBlank = mockk<SetStartingBlank>(relaxed = true)
     private val getSource = mockk<GetDictionarySource>()
     private val setSource = mockk<SetDictionarySource>(relaxed = true)
+    private val getDynamicColor = mockk<GetDynamicColor>()
+    private val setDynamicColor = mockk<SetDynamicColor>(relaxed = true)
+    private val getWotdNotification = mockk<GetWotdNotification>()
+    private val setWotdNotification = mockk<SetWotdNotification>(relaxed = true)
+    private val getIconVariant = mockk<GetIconVariant>()
+    private val setIconVariant = mockk<SetIconVariant>(relaxed = true)
+    private val getWotdWord = mockk<GetWotdWord>()
+    private val setWotdWord = mockk<SetWotdWord>(relaxed = true)
+    private val getWotdDate = mockk<GetWotdDate>()
+    private val setWotdDate = mockk<SetWotdDate>(relaxed = true)
     private val tts = mockk<TTS>()
     private val backupUseCases = mockk<BackupUseCases>(relaxed = true)
 
@@ -85,16 +105,16 @@ class SettingsViewModelTest {
             setStartingBlank = setStartingBlank,
             getSource = getSource,
             setSource = setSource,
-            getDynamicColor = mockk { coEvery { invoke() } returns true },
-            setDynamicColor = mockk(relaxed = true),
-            getWotdNotification = mockk { coEvery { invoke() } returns false },
-            setWotdNotification = mockk(relaxed = true),
-            getIconVariant = mockk { coEvery { invoke() } returns IconVariant.Default },
-            setIconVariant = mockk(relaxed = true),
-            getWotdWord = mockk { coEvery { invoke() } returns null },
-            setWotdWord = mockk(relaxed = true),
-            getWotdDate = mockk { coEvery { invoke() } returns null },
-            setWotdDate = mockk(relaxed = true)
+            getDynamicColor = getDynamicColor,
+            setDynamicColor = setDynamicColor,
+            getWotdNotification = getWotdNotification,
+            setWotdNotification = setWotdNotification,
+            getIconVariant = getIconVariant,
+            setIconVariant = setIconVariant,
+            getWotdWord = getWotdWord,
+            setWotdWord = setWotdWord,
+            getWotdDate = getWotdDate,
+            setWotdDate = setWotdDate
         ),
         backupUseCases = backupUseCases,
         tts = tts
@@ -106,6 +126,11 @@ class SettingsViewModelTest {
         coEvery { getVibration.invoke() } returns false
         coEvery { getStartingBlank.invoke() } returns false
         coEvery { getSource.invoke() } returns DictionarySource.Wiktionary
+        coEvery { getDynamicColor.invoke() } returns true
+        coEvery { getWotdNotification.invoke() } returns false
+        coEvery { getIconVariant.invoke() } returns IconVariant.Default
+        coEvery { getWotdWord.invoke() } returns null
+        coEvery { getWotdDate.invoke() } returns null
         coEvery { tts.languages() } returns listOf(Locale.US, Locale.UK)
         every { tts.engine } returns null
     }
