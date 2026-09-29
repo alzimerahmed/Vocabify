@@ -39,5 +39,6 @@ data class HomeState(
     val expandedText: String = "",
     val isShowingExpandedTextDialog: Boolean = false,
     val expandedTextWords: ImmutableList<String> = persistentListOf(),
-    val etymology: String? = null
+    val etymology: String? = null,
+    val wotdWord: String = ""
 )

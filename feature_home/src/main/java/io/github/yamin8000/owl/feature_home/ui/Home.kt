@@ -66,6 +66,7 @@ import io.github.yamin8000.owl.common.ui.theme.Sizes
 import io.github.yamin8000.owl.common.util.ContextUtils.findActivity
 import io.github.yamin8000.owl.feature_home.ui.components.ExpandedTextDialog
 import io.github.yamin8000.owl.feature_home.ui.components.MainTopBar
+import io.github.yamin8000.owl.feature_home.ui.components.WotdCard
 import io.github.yamin8000.owl.feature_home.ui.components.bottom_app_bar.MainBottomBar
 import io.github.yamin8000.owl.feature_home.ui.components.bottom_app_bar.SuggestionsChips
 import io.github.yamin8000.owl.feature_home.ui.util.ShareUtils.handleShareIntent
@@ -304,6 +305,13 @@ internal fun HomeContent(
                         Alignment.CenterVertically
                     ),
                     content = {
+                        if (state.wotdWord.isNotBlank()) {
+                            WotdCard(
+                                modifier = Modifier.fillMaxWidth(),
+                                word = state.wotdWord,
+                                onClick = { onAction(HomeAction.NewSearch(state.wotdWord)) }
+                            )
+                        }
                         AppText(text = stringResource(R.string.search_hint))
                         EmptyList()
                     }

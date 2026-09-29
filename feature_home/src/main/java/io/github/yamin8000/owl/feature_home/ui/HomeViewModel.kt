@@ -31,6 +31,8 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.github.yamin8000.owl.common.domain.model.DictionarySource
+import io.github.yamin8000.owl.common.domain.model.WordOfTheDaySelector
+import io.github.yamin8000.owl.common.domain.model.WordOfTheDayWords
 import io.github.yamin8000.owl.common.util.StringUtils.sanitizeWord
 import io.github.yamin8000.owl.common.util.TTS
 import io.github.yamin8000.owl.common.util.log
@@ -165,7 +167,13 @@ class HomeViewModel @AssistedInject constructor(
 
     private suspend fun loadSettings() {
         _state.update {
-            it.copy(isVibrating = settingsUseCases.getVibration())
+            it.copy(
+                isVibrating = settingsUseCases.getVibration(),
+                wotdWord = WordOfTheDaySelector.select(
+                    WordOfTheDayWords.words,
+                    WordOfTheDaySelector.todayEpochDay()
+                )
+            )
         }
         if (!settingsUseCases.getStartingBlank() && searchTerm.value.isBlank()) {
             savedState["Search"] = "free"

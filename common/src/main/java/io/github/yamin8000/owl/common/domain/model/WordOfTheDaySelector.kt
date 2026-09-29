@@ -32,6 +32,18 @@ package io.github.yamin8000.owl.common.domain.model
  */
 object WordOfTheDaySelector {
 
+    private const val MILLIS_PER_DAY = 24L * 60 * 60 * 1000
+
+    /**
+     * Days since the epoch (UTC) for "now". Uses [java.util.Calendar]
+     * instead of java.time because Android lint does not credit core
+     * library desugaring (NewApi on minSdk 24).
+     */
+    fun todayEpochDay(): Long {
+        val calendar = java.util.Calendar.getInstance(java.util.TimeZone.getTimeZone("UTC"))
+        return Math.floorDiv(calendar.timeInMillis, MILLIS_PER_DAY)
+    }
+
     /**
      * Deterministically picks the word of the day.
      *
