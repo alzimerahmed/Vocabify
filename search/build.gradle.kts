@@ -60,6 +60,12 @@ android {
     testOptions {
         unitTests {
             isIncludeAndroidResources = true
+            all {
+                // Required by Robolectric @GraphicsMode(NATIVE) — enables the native
+                // graphics runtime; without it createComposeRule() fails with
+                // RuntimeException from RoboMonitoringInstrumentation.
+                it.systemProperty("robolectric.nativeruntime.enableGraphics", true)
+            }
         }
     }
 }
