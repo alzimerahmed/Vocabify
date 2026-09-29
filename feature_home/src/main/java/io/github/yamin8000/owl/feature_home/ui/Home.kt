@@ -147,8 +147,8 @@ fun HomeScreen(
             ?.trim()
             ?.takeIf { it.isNotBlank() }
         if (spokenText != null) {
-            onAction(HomeAction.OnTermChanged(spokenText))
-            onAction(HomeAction.NewSearch(spokenText))
+            vm.onAction(HomeAction.OnTermChanged(spokenText))
+            vm.onAction(HomeAction.NewSearch(spokenText))
         }
     }
     val onVoiceSearch: (() -> Unit)? = if (voiceSearchAvailable) {
