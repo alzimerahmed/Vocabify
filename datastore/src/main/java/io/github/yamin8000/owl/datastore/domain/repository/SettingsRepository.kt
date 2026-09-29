@@ -22,6 +22,7 @@
 package io.github.yamin8000.owl.datastore.domain.repository
 
 import io.github.yamin8000.owl.common.domain.model.DictionarySource
+import io.github.yamin8000.owl.datastore.domain.model.IconVariant
 import io.github.yamin8000.owl.datastore.domain.model.ThemeType
 
 interface SettingsRepository : BaseDatastoreRepository {
@@ -35,4 +36,14 @@ interface SettingsRepository : BaseDatastoreRepository {
     suspend fun setIsStartingBlank(value: Boolean)
     suspend fun getDictionarySource(): DictionarySource
     suspend fun setDictionarySource(source: DictionarySource)
+    suspend fun getIsDynamicColor(): Boolean
+    suspend fun setIsDynamicColor(value: Boolean)
+    suspend fun getIsWotdNotification(): Boolean
+    suspend fun setIsWotdNotification(value: Boolean)
+    suspend fun getIconVariant(): IconVariant
+    suspend fun setIconVariant(variant: IconVariant)
+    suspend fun getWotdWord(): String?
+    suspend fun setWotdWord(word: String)
+    suspend fun getWotdDate(): String?
+    suspend fun setWotdDate(date: String)
 }

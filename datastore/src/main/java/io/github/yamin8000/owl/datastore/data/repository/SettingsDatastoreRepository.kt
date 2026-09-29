@@ -24,6 +24,7 @@ package io.github.yamin8000.owl.datastore.data.repository
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import io.github.yamin8000.owl.common.domain.model.DictionarySource
+import io.github.yamin8000.owl.datastore.domain.model.IconVariant
 import io.github.yamin8000.owl.datastore.domain.model.SettingsKeys
 import io.github.yamin8000.owl.datastore.domain.model.ThemeType
 import io.github.yamin8000.owl.datastore.domain.repository.BaseDatastoreRepository
@@ -72,5 +73,45 @@ class SettingsDatastoreRepository(
 
     override suspend fun setDictionarySource(source: DictionarySource) {
         setString(SettingsKeys.DictionarySource.toString(), source.name)
+    }
+
+    override suspend fun getIsDynamicColor(): Boolean {
+        return getBool(SettingsKeys.IS_DYNAMIC_COLOR) != false
+    }
+
+    override suspend fun setIsDynamicColor(value: Boolean) {
+        setBool(SettingsKeys.IS_DYNAMIC_COLOR, value)
+    }
+
+    override suspend fun getIsWotdNotification(): Boolean {
+        return getBool(SettingsKeys.IS_WOTD_NOTIFICATION) == true
+    }
+
+    override suspend fun setIsWotdNotification(value: Boolean) {
+        setBool(SettingsKeys.IS_WOTD_NOTIFICATION, value)
+    }
+
+    override suspend fun getIconVariant(): IconVariant {
+        return IconVariant.toVariant(getString(SettingsKeys.ICON_VARIANT))
+    }
+
+    override suspend fun setIconVariant(variant: IconVariant) {
+        setString(SettingsKeys.ICON_VARIANT, variant.name)
+    }
+
+    override suspend fun getWotdWord(): String? {
+        return getString(SettingsKeys.WOTD_WORD)
+    }
+
+    override suspend fun setWotdWord(word: String) {
+        setString(SettingsKeys.WOTD_WORD, word)
+    }
+
+    override suspend fun getWotdDate(): String? {
+        return getString(SettingsKeys.WOTD_DATE)
+    }
+
+    override suspend fun setWotdDate(date: String) {
+        setString(SettingsKeys.WOTD_DATE, date)
     }
 }
