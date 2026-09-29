@@ -82,4 +82,7 @@
     <string name="see_source">See source</string>
     <string name="advanced">Advanced</string>
     <string name="tts_error">Failed to play the speech, TTS error!</string>
+    <string name="voice_search">Voice search</string>
+    <string name="voice_search_prompt">Speak a word to search</string>
+    <string name="overlay_search_tile">Overlay search</string>
 </resources>
