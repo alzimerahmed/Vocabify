@@ -21,11 +21,14 @@
 
 package io.github.yamin8000.owl.feature_favourites
 
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.twotone.School
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import io.github.yamin8000.owl.common.ui.components.ClickableIcon
 import io.github.yamin8000.owl.common.ui.components.crud.CrudContent
 import io.github.yamin8000.owl.strings.R
 import kotlinx.collections.immutable.toImmutableList
@@ -34,10 +37,12 @@ import kotlinx.collections.immutable.toImmutableList
 fun FavouritesScreen(
     onFavouritesItemClick: (String) -> Unit,
     onBackClick: () -> Unit,
+    onNavigateToLearning: () -> Unit,
     modifier: Modifier = Modifier,
     vm: FavouritesViewModel = hiltViewModel(),
 ) {
     val state = vm.state.collectAsStateWithLifecycle().value
+    val learningDescription = stringResource(R.string.learning)
     CrudContent(
         modifier = modifier,
         title = stringResource(R.string.favourites),
@@ -45,6 +50,13 @@ fun FavouritesScreen(
         onBackClick = onBackClick,
         onRemoveAll = { vm.onEvent(FavouriteEvent.RemoveAll) },
         onRemoveSingle = { vm.onEvent(FavouriteEvent.Remove(it)) },
-        onItemClick = onFavouritesItemClick
+        onItemClick = onFavouritesItemClick,
+        actions = {
+            ClickableIcon(
+                imageVector = Icons.TwoTone.School,
+                contentDescription = learningDescription,
+                onClick = onNavigateToLearning
+            )
+        }
     )
 }

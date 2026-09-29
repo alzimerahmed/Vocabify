@@ -101,4 +101,13 @@
     <string name="wotd_notification_channel_description">Minden nap egy új szót mutat</string>
     <string name="wotd_widget_word_description">A nap szó, koppintson a kereséshez</string>
     <string name="wotd_widget_search_description">Keresés megnyitása</string>
+    <string name="learning">Tanulás</string>
+    <string name="learning_empty">Még nincsenek kedvenc szavak. Gyakorláshoz adjon szavakat a kedvencekhez.</string>
+    <string name="flip_card">Kártya megfordítása</string>
+    <string name="tap_to_reveal">Koppintson a felfedéshez</string>
+    <string name="previous_card">Előző kártya</string>
+    <string name="next_card">Következő kártya</string>
+    <string name="shuffle_deck">Pakli keverése</string>
+    <string name="card_progress">%1$d / %2$d</string>
+    <string name="no_cached_definition">A definíció megtekintéséhez keresse meg egyszer ezt a szót.</string>
 </resources>

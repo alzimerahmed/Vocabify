@@ -29,6 +29,7 @@ object Nav {
         data object Settings : Route
         data object About : Route
         data object Favourites : Route
+        data object Learning : Route
 
         operator fun invoke(): String {
             return this.toString()

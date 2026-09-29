@@ -101,4 +101,13 @@
     <string name="wotd_notification_channel_description">हर दिन एक नया शब्द दिखाता है</string>
     <string name="wotd_widget_word_description">आज का शब्द, खोजने के लिए टैप करें</string>
     <string name="wotd_widget_search_description">सर्च खोलें</string>
+    <string name="learning">अभ्यास</string>
+    <string name="learning_empty">अभी कोई पसंदीदा शब्द नहीं है। यहाँ अभ्यास के लिए शब्दों को पसंदीदा में जोड़ें।</string>
+    <string name="flip_card">कार्ड पलटें</string>
+    <string name="tap_to_reveal">देखने के लिए टैप करें</string>
+    <string name="previous_card">पिछला कार्ड</string>
+    <string name="next_card">अगला कार्ड</string>
+    <string name="shuffle_deck">डेक शफ़ल करें</string>
+    <string name="card_progress">%1$d / %2$d</string>
+    <string name="no_cached_definition">यहाँ परिभाषा देखने के लिए इस शब्द को एक बार खोजें।</string>
 </resources>
