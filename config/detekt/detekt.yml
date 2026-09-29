@@ -27,8 +27,13 @@ style:
     active: false # formatting concern — owned by ktlint
   ReturnCount:
     active: false
-  UnusedPrivateMember:
+  UnusedPrivateProperty:
     active: true
     ignoreAnnotated:
       - Preview
       - Rule # JUnit rule properties are referenced only via @get:Rule
+  UnusedPrivateFunction:
+    active: true
+    ignoreAnnotated:
+      - Preview
+      - Rule
