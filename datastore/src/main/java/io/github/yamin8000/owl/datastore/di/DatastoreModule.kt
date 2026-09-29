@@ -124,6 +124,8 @@ object DatastoreModule {
     }
 
     @Provides
+    @Singleton
+    fun providesBackupUseCases(
         historyRepository: HistoryRepository,
         favouriteRepository: FavouriteRepository,
         moshi: Moshi

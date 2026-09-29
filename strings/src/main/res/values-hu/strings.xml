@@ -87,11 +87,4 @@
     <string name="backup_export_success">A mentés sikeresen exportálva</string>
     <string name="backup_import_success">%1$d bejegyzés importálva</string>
     <string name="backup_invalid_file">Nem érvényes Vocabify mentésfájl</string>
-    <string name="etymology">Szóeredet</string>
-    <string name="backup_restore">Mentés és visszaállítás</string>
-    <string name="export_data">Adatok exportálása</string>
-    <string name="import_data">Adatok importálása</string>
-    <string name="backup_export_success">A mentés sikeresen exportálva</string>
-    <string name="backup_import_success">%1$d bejegyzés importálva</string>
-    <string name="backup_invalid_file">Nem érvényes Vocabify mentésfájl</string>
 </resources>

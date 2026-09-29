@@ -87,11 +87,4 @@
     <string name="backup_export_success">बैकअप निर्यात हो गया</string>
     <string name="backup_import_success">%1$d प्रविष्टियाँ आयात की गईं</string>
     <string name="backup_invalid_file">मान्य Vocabify बैकअप फ़ाइल नहीं है</string>
-    <string name="etymology">व्युत्पत्ति</string>
-    <string name="backup_restore">बैकअप और पुनर्स्थापना</string>
-    <string name="export_data">डेटा निर्यात करें</string>
-    <string name="import_data">डेटा आयात करें</string>
-    <string name="backup_export_success">बैकअप निर्यात हो गया</string>
-    <string name="backup_import_success">%1$d प्रविष्टियाँ आयात की गईं</string>
-    <string name="backup_invalid_file">मान्य Vocabify बैकअप फ़ाइल नहीं है</string>
 </resources>

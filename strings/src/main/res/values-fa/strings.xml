@@ -87,11 +87,4 @@
     <string name="backup_export_success">پشتیبان با موفقیت ذخیره شد</string>
     <string name="backup_import_success">%1$d مورد وارد شد</string>
     <string name="backup_invalid_file">فایل پشتیبان معتبر نیست</string>
-    <string name="etymology">ریشه‌شناسی</string>
-    <string name="backup_restore">پشتیبان‌گیری و بازیابی</string>
-    <string name="export_data">برون‌بری داده‌ها</string>
-    <string name="import_data">درون‌ریزی داده‌ها</string>
-    <string name="backup_export_success">پشتیبان با موفقیت ذخیره شد</string>
-    <string name="backup_import_success">%1$d مورد وارد شد</string>
-    <string name="backup_invalid_file">فایل پشتیبان معتبر نیست</string>
 </resources>
