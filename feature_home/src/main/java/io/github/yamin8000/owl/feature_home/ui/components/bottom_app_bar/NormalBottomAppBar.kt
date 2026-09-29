@@ -135,6 +135,7 @@ internal fun NormalBottomAppBar(
                 )
                     )
                 }
+            )
         }
     )
 }
