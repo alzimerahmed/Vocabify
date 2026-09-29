@@ -46,6 +46,7 @@ private fun Preview() {
             isSearching = false,
             onSearchTermChange = {},
             onSearch = {},
+            onVoiceSearch = null,
             onCancel = {}
         )
     }
@@ -59,6 +60,7 @@ internal fun MainBottomBar(
     onSearch: () -> Unit,
     onCancel: () -> Unit,
     modifier: Modifier = Modifier,
+    onVoiceSearch: (() -> Unit)? = null,
     suggestionsChips: @Composable ColumnScope.() -> Unit
 ) {
     Column(
@@ -76,7 +78,8 @@ internal fun MainBottomBar(
                         NormalBottomAppBar(
                             onSearch = onSearch,
                             onSearchTermChange = onSearchTermChange,
-                            searchTerm = searchTerm
+                            searchTerm = searchTerm,
+                            onVoiceSearch = onVoiceSearch
                         )
                     } else BottomAppBarDuringSearch(onCancel = onCancel)
                 }

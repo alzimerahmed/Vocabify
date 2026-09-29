@@ -21,6 +21,7 @@
 
 package io.github.yamin8000.owl.feature_home.ui.components.bottom_app_bar
 
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CutCornerShape
@@ -28,6 +29,7 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.twotone.Clear
+import androidx.compose.material.icons.twotone.Mic
 import androidx.compose.material.icons.twotone.Search
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.MaterialTheme
@@ -51,6 +53,7 @@ private fun Preview() {
     PreviewTheme {
         NormalBottomAppBar(
             onSearch = {},
+            onVoiceSearch = null,
             onSearchTermChange = {},
             searchTerm = "free"
         )
@@ -62,7 +65,8 @@ internal fun NormalBottomAppBar(
     searchTerm: String,
     onSearchTermChange: (String) -> Unit,
     onSearch: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onVoiceSearch: (() -> Unit)? = null
 ) {
     BottomAppBar(
         modifier = modifier,
@@ -95,12 +99,21 @@ internal fun NormalBottomAppBar(
                     )
                 },
                 trailingIcon = {
-                    ClickableIcon(
-                        enabled = searchTerm.isNotBlank(),
-                        imageVector = Icons.TwoTone.Search,
-                        contentDescription = stringResource(R.string.search),
-                        onClick = onSearch
-                    )
+                    Row {
+                        onVoiceSearch?.let { onMicClick ->
+                            ClickableIcon(
+                                imageVector = Icons.TwoTone.Mic,
+                                contentDescription = stringResource(R.string.voice_search),
+                                onClick = onMicClick
+                            )
+                        }
+                        ClickableIcon(
+                            enabled = searchTerm.isNotBlank(),
+                            imageVector = Icons.TwoTone.Search,
+                            contentDescription = stringResource(R.string.search),
+                            onClick = onSearch
+                        )
+                    }
                 },
                 value = searchTerm,
                 onValueChange = onSearchTermChange,

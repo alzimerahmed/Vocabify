@@ -22,8 +22,12 @@
 package io.github.yamin8000.owl.feature_home.ui
 
 import android.content.Context
+import android.content.Intent
 import android.media.AudioManager
+import android.speech.RecognizerIntent
 import android.widget.Toast
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -127,6 +131,40 @@ fun HomeScreen(
         state.snackbarHostState.showSnackbar(getErrorText(context, error))
     }
 
+    // Speech-to-text search (Feature 8): only offer the mic when a
+    // recognizer activity is installed on the device.
+    val voiceSearchAvailable = remember {
+        Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
+            .resolveActivity(context.packageManager) != null
+    }
+    val voiceSearchPrompt = stringResource(R.string.voice_search_prompt)
+    val voiceLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        val spokenText = result.data
+            ?.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
+            ?.firstOrNull()
+            ?.trim()
+            ?.takeIf { it.isNotBlank() }
+        if (spokenText != null) {
+            onAction(HomeAction.OnTermChanged(spokenText))
+            onAction(HomeAction.NewSearch(spokenText))
+        }
+    }
+    val onVoiceSearch: (() -> Unit)? = if (voiceSearchAvailable) {
+        {
+            val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
+                putExtra(
+                    RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+                    RecognizerIntent.LANGUAGE_MODEL_FREE_FORM
+                )
+                putExtra(RecognizerIntent.EXTRA_PROMPT, voiceSearchPrompt)
+                putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 1)
+            }
+            voiceLauncher.launch(intent)
+        }
+    } else null
+
     HomeContent(
         state = state,
         term = vm.searchTerm.collectAsState().value,
@@ -136,6 +174,7 @@ fun HomeScreen(
         onNavigateToSettings = onNavigateToSettings,
         onNavigateToFavourites = onNavigateToFavourites,
         onNavigateToHistory = onNavigateToHistory,
+        onVoiceSearch = onVoiceSearch,
         modifier = modifier
     )
 }
@@ -150,7 +189,8 @@ internal fun HomeContent(
     onNavigateToSettings: () -> Unit,
     onNavigateToFavourites: () -> Unit,
     onNavigateToHistory: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onVoiceSearch: (() -> Unit)? = null
 ) {
     val listState = rememberLazyListState()
     if (listState.isScrollInProgress && state.isVibrating) {
@@ -213,7 +253,8 @@ internal fun HomeContent(
                     if (isWordSelectedFromKeyboardSuggestions) {
                         onAction(HomeAction.NewSearch(it))
                     }
-                }
+                },
+                onVoiceSearch = onVoiceSearch
             )
         },
         content = { contentPadding ->

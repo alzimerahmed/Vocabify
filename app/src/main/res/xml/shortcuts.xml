@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~     Vocabify/freeDictionaryApp.app.main
+  ~     shortcuts.xml Copyrighted by Yamin Siahmargooei at 2024/5/9
+  ~     shortcuts.xml Last modified at 2026/2/14
+  ~     This file is part of Vocabify/freeDictionaryApp.app.main.
+  ~     Copyright (C) 2024  Yamin Siahmargooei
+  ~
+  ~     Vocabify/freeDictionaryApp.app.main is free software: you can redistribute it and/or modify
+  ~     it under the terms of the GNU General Public License as published by
+  ~     the Free Software Foundation, either version 3 of the License, or
+  ~     (at your option) any later version.
+  ~
+  ~     Vocabify/freeDictionaryApp.app.main is distributed in the hope that it will be useful,
+  ~     but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~     GNU General Public License for more details.
+  ~
+  ~     You should have received a copy of the GNU General Public License
+  ~     along with freeDictionaryApp.  If not, see <https://www.gnu.org/licenses/>.
+  -->
+
+<!-- Share-target declaration (Feature 3): registers Vocabify as a direct
+     share target for text/plain on API 25+. On API 24 the plain
+     ACTION_SEND intent-filter on ShareSearchActivity still applies. -->
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <share-target android:targetClass="io.github.yamin8000.owl.ui.ShareSearchActivity">
+        <data android:mimeType="text/plain" />
+        <category android:name="io.github.yamin8000.owl.category.TEXT_SHARE_TARGET" />
+    </share-target>
+
+    <shortcut
+        android:enabled="true"
+        android:icon="@mipmap/ic_launcher"
+        android:shortcutId="text_share_target"
+        android:shortcutShortLabel="@string/search">
+        <intent
+            android:action="android.intent.action.SEND"
+            android:targetClass="io.github.yamin8000.owl.ui.ShareSearchActivity"
+            android:targetPackage="${applicationId}">
+            <category android:name="android.intent.category.DEFAULT" />
+            <category android:name="io.github.yamin8000.owl.category.TEXT_SHARE_TARGET" />
+        </intent>
+    </shortcut>
+</shortcuts>
