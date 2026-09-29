@@ -42,6 +42,12 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+            <!-- Direct-share shortcuts (share target on API 25+).
+                 ShortcutManager only reads this meta-data from an activity. -->
+            <meta-data
+                android:name="android.app.shortcuts"
+                android:resource="@xml/shortcuts" />
         </activity>
 
         <!-- Share-to-search trampoline (Feature 3): receives ACTION_SEND
@@ -70,11 +76,6 @@
                 <action android:name="android.service.quicksettings.action.QS_TILE" />
             </intent-filter>
         </service>
-
-        <!-- Direct-share shortcuts (share target on API 25+). -->
-        <meta-data
-            android:name="android.app.shortcuts"
-            android:resource="@xml/shortcuts" />
 
         <activity
             android:name=".ui.OverlayActivity"

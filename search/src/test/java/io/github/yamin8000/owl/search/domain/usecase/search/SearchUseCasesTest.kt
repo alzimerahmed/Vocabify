@@ -30,7 +30,6 @@ import io.mockk.mockk
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class SearchUseCasesTest {
@@ -65,11 +64,16 @@ class SearchUseCasesTest {
     }
 
     @Test
-    fun `both source repositories satisfy the multi-source abstraction`() {
+    fun `use cases accept any DictionarySourceRepository implementation`() = runTest {
+        val entry = Entry(word = "apple", meanings = persistentListOf())
         val freeDictionary = mockk<FreeDictionaryApiRepository>()
         val wiktionary = mockk<WiktionaryApiRepository>()
+        coEvery { freeDictionary.searchWord("apple") } returns listOf(entry)
+        coEvery { wiktionary.searchWord("apple") } returns listOf(entry)
 
-        assertTrue(freeDictionary is DictionarySourceRepository)
-        assertTrue(wiktionary is DictionarySourceRepository)
+        val sources = listOf<DictionarySourceRepository>(freeDictionary, wiktionary)
+        val results = sources.map { it.searchWord("apple") }
+
+        assertEquals(listOf(listOf(entry), listOf(entry)), results)
     }
 }

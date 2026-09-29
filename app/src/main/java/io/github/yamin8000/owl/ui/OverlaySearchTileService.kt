@@ -21,7 +21,6 @@
 
 package io.github.yamin8000.owl.ui
 
-import android.app.ActivityOptions
 import android.app.PendingIntent
 import android.content.Intent
 import android.os.Build
@@ -32,10 +31,9 @@ import io.github.yamin8000.owl.common.util.log
 /**
  * Quick Settings tile that launches the overlay (bubble) search (Feature 12).
  *
- * Background activity launch restrictions on API 29+ are handled by starting
- * the overlay through a [PendingIntent]; on API 34+ the pending intent is sent
- * with [ActivityOptions.MODE_BACKGROUND_ACTIVITY_START_ALLOWED] so the launch
- * is permitted from a tile while the device is unlocked.
+ * Uses [TileService.startActivityAndCollapse] — the tile context is exempt from
+ * background-activity-start restrictions when the panel is collapsed this way.
+ * The PendingIntent overload exists only on API 34+; the Intent overload covers 24-33.
  */
 internal class OverlaySearchTileService : TileService() {
 
@@ -63,30 +61,11 @@ internal class OverlaySearchTileService : TileService() {
             PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
         )
         try {
-            when {
-                Build.VERSION.SDK_INT >= 34 -> {
-                    val options = ActivityOptions.makeBasic()
-                    options.setPendingIntentBackgroundActivityStartMode(
-                        ActivityOptions.MODE_BACKGROUND_ACTIVITY_START_ALLOWED
-                    )
-                    pendingIntent.send(
-                        this,
-                        0,
-                        null,
-                        null,
-                        null,
-                        null,
-                        options.toBundle()
-                    )
-                }
-
-                Build.VERSION.SDK_INT >= 29 ->
-                    @Suppress("DEPRECATION")
-                    startActivityAndCollapse(pendingIntent)
-
-                else ->
-                    @Suppress("DEPRECATION")
-                    startActivityAndCollapse(intent)
+            if (Build.VERSION.SDK_INT >= 34) {
+                startActivityAndCollapse(pendingIntent)
+            } else {
+                @Suppress("DEPRECATION")
+                startActivityAndCollapse(intent)
             }
         } catch (e: PendingIntent.CanceledException) {
             log(e.stackTraceToString())
