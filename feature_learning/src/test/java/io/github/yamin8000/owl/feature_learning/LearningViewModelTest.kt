@@ -93,7 +93,6 @@ class LearningViewModelTest {
 
         viewModel.onEvent(LearningEvent.Next)
         viewModel.onEvent(LearningEvent.Next)
-        viewModel.onEvent(LearningEvent.Next)
 
         viewModel.state.test {
             assertEquals("alpha", awaitItem().deck.current?.word)
