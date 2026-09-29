@@ -87,4 +87,15 @@
     <string name="backup_export_success">A mentés sikeresen exportálva</string>
     <string name="backup_import_success">%1$d bejegyzés importálva</string>
     <string name="backup_invalid_file">Nem érvényes Vocabify mentésfájl</string>
+    <string name="wotd_notification_channel_name">A nap szó</string>
+    <string name="wotd_notification_title">A nap szó</string>
+    <string name="wotd_notification_body">Mai szó: %1$s — koppintson a kereséshez</string>
+    <string name="wotd_card_label">A nap szó</string>
+    <string name="wotd_notification">Napi szó értesítés</string>
+    <string name="wotd_widget_label">A nap szó</string>
+    <string name="wotd_widget_description">Keresés és a mai szó egy helyen</string>
+    <string name="dynamic_color">Dinamikus szín (Material You)</string>
+    <string name="app_icon">Alkalmazás ikon</string>
+    <string name="app_icon_default">Alapértelmezett</string>
+    <string name="app_icon_monochrome">Egyszínű</string>
 </resources>

@@ -22,6 +22,7 @@
 package io.github.yamin8000.owl.feature_settings.ui
 
 import io.github.yamin8000.owl.common.domain.model.DictionarySource
+import io.github.yamin8000.owl.datastore.domain.model.IconVariant
 import io.github.yamin8000.owl.datastore.domain.model.ThemeType
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
@@ -37,7 +38,10 @@ data class SettingsState(
     val currentTab: SettingsTab = SettingsTab.General,
     val isTtsAvailable: Boolean = false,
     val backupJson: String? = null,
-    val backupStatus: BackupStatus = BackupStatus.Idle
+    val backupStatus: BackupStatus = BackupStatus.Idle,
+    val isDynamicColor: Boolean = true,
+    val isWotdNotification: Boolean = false,
+    val iconVariant: IconVariant = IconVariant.Default
 )
 
 sealed interface BackupStatus {

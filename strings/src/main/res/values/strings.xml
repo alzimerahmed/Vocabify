@@ -92,4 +92,15 @@
     <string name="backup_export_success">Backup exported</string>
     <string name="backup_import_success">Imported %1$d entries</string>
     <string name="backup_invalid_file">Not a valid Vocabify backup file</string>
+    <string name="wotd_notification_channel_name">Word of the day</string>
+    <string name="wotd_notification_title">Word of the day</string>
+    <string name="wotd_notification_body">Today’s word: %1$s — tap to look it up</string>
+    <string name="wotd_card_label">Word of the day</string>
+    <string name="wotd_notification">Daily word notification</string>
+    <string name="wotd_widget_label">Word of the day</string>
+    <string name="wotd_widget_description">Search and today’s word at a glance</string>
+    <string name="dynamic_color">Dynamic color (Material You)</string>
+    <string name="app_icon">App icon</string>
+    <string name="app_icon_default">Default</string>
+    <string name="app_icon_monochrome">Monochrome</string>
 </resources>

@@ -46,8 +46,11 @@ import io.github.yamin8000.owl.common.ui.theme.Sizes
 import io.github.yamin8000.owl.datastore.domain.model.ThemeType
 import io.github.yamin8000.owl.feature_settings.ui.components.BackupSettings
 import io.github.yamin8000.owl.feature_settings.ui.components.DictionarySourceSettings
+import io.github.yamin8000.owl.feature_settings.ui.components.DynamicColorSetting
 import io.github.yamin8000.owl.feature_settings.ui.components.GeneralSettings
+import io.github.yamin8000.owl.feature_settings.ui.components.IconVariantSetting
 import io.github.yamin8000.owl.feature_settings.ui.components.SettingsItemCard
+import io.github.yamin8000.owl.feature_settings.ui.components.WotdNotificationSetting
 import io.github.yamin8000.owl.feature_settings.ui.components.theme.ThemeSetting
 import io.github.yamin8000.owl.feature_settings.ui.components.tts.TtsLanguageSetting
 import io.github.yamin8000.owl.feature_settings.utils.Utility.resourceName
@@ -81,6 +84,7 @@ fun SettingsScreen(
     modifier: Modifier = Modifier,
     vm: SettingsViewModel = hiltViewModel(),
     onThemeChanged: (ThemeType) -> Unit,
+    onDynamicColorChanged: (Boolean) -> Unit = {},
     onBackClick: () -> Unit
 ) {
     val state = vm.state.collectAsStateWithLifecycle().value
@@ -90,6 +94,7 @@ fun SettingsScreen(
         state = state,
         onAction = { vm.onAction(it) },
         onThemeChanged = onThemeChanged,
+        onDynamicColorChanged = onDynamicColorChanged,
         onBackClick = onBackClick
     )
 }
@@ -100,7 +105,8 @@ internal fun SettingsContent(
     onAction: (SettingsAction) -> Unit,
     onThemeChanged: (ThemeType) -> Unit,
     onBackClick: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onDynamicColorChanged: (Boolean) -> Unit = {}
 ) {
     ScaffoldWithTitle(
         modifier = modifier,
@@ -169,6 +175,25 @@ internal fun SettingsContent(
                                         onThemeChanged = { newTheme ->
                                             onAction(SettingsAction.OnThemeChange(newTheme))
                                             onThemeChanged(newTheme)
+                                        }
+                                    )
+                                    DynamicColorSetting(
+                                        isDynamicColor = state.isDynamicColor,
+                                        onDynamicColorChange = {
+                                            onAction(SettingsAction.OnDynamicColorChange(it))
+                                            onDynamicColorChanged(it)
+                                        }
+                                    )
+                                    WotdNotificationSetting(
+                                        isEnabled = state.isWotdNotification,
+                                        onEnabledChange = {
+                                            onAction(SettingsAction.OnWotdNotificationChange(it))
+                                        }
+                                    )
+                                    IconVariantSetting(
+                                        currentVariant = state.iconVariant,
+                                        onVariantChange = {
+                                            onAction(SettingsAction.OnIconVariantChange(it))
                                         }
                                     )
                                 }

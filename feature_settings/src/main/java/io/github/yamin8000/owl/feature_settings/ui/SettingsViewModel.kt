@@ -55,6 +55,9 @@ class SettingsViewModel @Inject constructor(
                 isVibrating = useCases.getVibration(),
                 isStartingBlank = useCases.getStartingBlank(),
                 source = useCases.getSource(),
+                isDynamicColor = useCases.getDynamicColor(),
+                isWotdNotification = useCases.getWotdNotification(),
+                iconVariant = useCases.getIconVariant(),
                 languages = tts.languages().toImmutableList(),
                 isTtsAvailable = tts.engine != null
             )
@@ -132,6 +135,21 @@ class SettingsViewModel @Inject constructor(
 
             SettingsAction.OnBackupJsonConsumed -> {
                 _state.update { it.copy(backupJson = null) }
+            }
+
+            is SettingsAction.OnDynamicColorChange -> {
+                _state.update { it.copy(isDynamicColor = action.value) }
+                scope.launch { useCases.setDynamicColor(action.value) }
+            }
+
+            is SettingsAction.OnWotdNotificationChange -> {
+                _state.update { it.copy(isWotdNotification = action.value) }
+                scope.launch { useCases.setWotdNotification(action.value) }
+            }
+
+            is SettingsAction.OnIconVariantChange -> {
+                _state.update { it.copy(iconVariant = action.variant) }
+                scope.launch { useCases.setIconVariant(action.variant) }
             }
         }
     }
