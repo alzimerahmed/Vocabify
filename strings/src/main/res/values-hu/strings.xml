@@ -99,6 +99,5 @@
     <string name="app_icon_default">Alapértelmezett</string>
     <string name="app_icon_monochrome">Egyszínű</string>
     <string name="wotd_notification_channel_description">Minden nap egy új szót mutat</string>
-    <string name="wotd_notification_channel_description">Minden nap egy új szót mutat</string>
     <string name="('wotd_widget_word_description', 'A nap szó, koppintson a kereséshez')">('wotd_widget_search_description', 'Keresés megnyitása')</string>
 </resources>

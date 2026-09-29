@@ -104,6 +104,5 @@
     <string name="app_icon_default">Default</string>
     <string name="app_icon_monochrome">Monochrome</string>
     <string name="wotd_notification_channel_description">Shows one new word every day</string>
-    <string name="wotd_notification_channel_description">Shows one new word every day</string>
     <string name="('wotd_widget_word_description', 'Word of the day, tap to search it')">('wotd_widget_search_description', 'Open Vocabify search')</string>
 </resources>
