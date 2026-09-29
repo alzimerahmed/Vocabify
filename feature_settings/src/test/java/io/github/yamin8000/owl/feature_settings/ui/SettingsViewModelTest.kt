@@ -118,12 +118,14 @@ class SettingsViewModelTest {
     fun `OnVibrationChange updates state and persists the value`() = runTest {
         stubSettings()
         val viewModel = viewModel()
-        advanceUntilIdle()
 
-        viewModel.onAction(SettingsAction.OnVibrationChange(true))
+        viewModel.state.test {
+            awaitItem() // initial default state
+            awaitItem() // loaded settings
+            viewModel.onAction(SettingsAction.OnVibrationChange(true))
+            assertTrue(awaitItem().isVibrating)
+        }
         advanceUntilIdle()
-
-        assertTrue(viewModel.state.value.isVibrating)
         coVerify(exactly = 1) { setVibration.invoke(true) }
     }
 
@@ -131,12 +133,14 @@ class SettingsViewModelTest {
     fun `OnThemeChange updates state and persists the theme`() = runTest {
         stubSettings()
         val viewModel = viewModel()
-        advanceUntilIdle()
 
-        viewModel.onAction(SettingsAction.OnThemeChange(ThemeType.Light))
+        viewModel.state.test {
+            awaitItem() // initial default state
+            awaitItem() // loaded settings
+            viewModel.onAction(SettingsAction.OnThemeChange(ThemeType.Light))
+            assertEquals(ThemeType.Light, awaitItem().theme)
+        }
         advanceUntilIdle()
-
-        assertEquals(ThemeType.Light, viewModel.state.value.theme)
         coVerify(exactly = 1) { setTheme.invoke(ThemeType.Light) }
     }
 
@@ -144,12 +148,14 @@ class SettingsViewModelTest {
     fun `OnSourceChanged updates state and persists the source`() = runTest {
         stubSettings()
         val viewModel = viewModel()
-        advanceUntilIdle()
 
-        viewModel.onAction(SettingsAction.OnSourceChanged(DictionarySource.FreeDictionary))
+        viewModel.state.test {
+            awaitItem() // initial default state
+            awaitItem() // loaded settings
+            viewModel.onAction(SettingsAction.OnSourceChanged(DictionarySource.FreeDictionary))
+            assertEquals(DictionarySource.FreeDictionary, awaitItem().source)
+        }
         advanceUntilIdle()
-
-        assertEquals(DictionarySource.FreeDictionary, viewModel.state.value.source)
         coVerify(exactly = 1) { setSource.invoke(DictionarySource.FreeDictionary) }
     }
 
@@ -157,11 +163,13 @@ class SettingsViewModelTest {
     fun `OnTabChanged updates the selected tab without persisting anything`() = runTest {
         stubSettings()
         val viewModel = viewModel()
-        advanceUntilIdle()
 
-        viewModel.onAction(SettingsAction.OnTabChanged(SettingsTab.Advanced))
-
-        assertEquals(SettingsTab.Advanced, viewModel.state.value.currentTab)
+        viewModel.state.test {
+            awaitItem() // initial default state
+            awaitItem() // loaded settings
+            viewModel.onAction(SettingsAction.OnTabChanged(SettingsTab.Advanced))
+            assertEquals(SettingsTab.Advanced, awaitItem().currentTab)
+        }
         coVerify(exactly = 0) { setTheme.invoke(any()) }
         coVerify(exactly = 0) { setSource.invoke(any()) }
     }
