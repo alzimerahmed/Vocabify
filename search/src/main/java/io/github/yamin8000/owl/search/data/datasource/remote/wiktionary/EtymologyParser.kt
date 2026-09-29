@@ -39,7 +39,7 @@ object EtymologyParser {
         val document = Jsoup.parse(sectionHtml)
         document.select("sup").remove()
         return document.select("p")
-            .map { it.wholeText().trim() }
+            .map { it.wholeText().replace(Regex("\\s+"), " ").trim() }
             .filter { it.isNotEmpty() }
             .distinct()
             .joinToString(separator = "\n\n")

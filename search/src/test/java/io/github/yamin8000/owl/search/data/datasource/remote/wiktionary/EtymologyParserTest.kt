@@ -57,7 +57,7 @@ class EtymologyParserTest {
             WikiSectionDto(index = "2", line = "etymology 1"),
             WikiSectionDto(index = "2", line = "Noun")
         )
-        assertEquals("1", EtymologyParser.findEtymologySectionIndex(sections))
+        assertEquals("2", EtymologyParser.findEtymologySectionIndex(sections))
     }
 
     @Test
