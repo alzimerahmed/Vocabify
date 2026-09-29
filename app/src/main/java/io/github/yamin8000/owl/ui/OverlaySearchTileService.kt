@@ -24,6 +24,7 @@ package io.github.yamin8000.owl.ui
 import android.app.PendingIntent
 import android.content.Intent
 import android.os.Build
+import android.annotation.SuppressLint
 import android.service.quicksettings.Tile
 import android.service.quicksettings.TileService
 import io.github.yamin8000.owl.common.util.log
@@ -51,6 +52,7 @@ internal class OverlaySearchTileService : TileService() {
         }
     }
 
+    @SuppressLint("StartActivityAndCollapseDeprecated") // Intent overload is the only option below API 34
     private fun launchOverlay() {
         val intent = Intent(this, OverlayActivity::class.java)
             .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
