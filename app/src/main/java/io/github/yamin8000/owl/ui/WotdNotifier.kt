@@ -26,9 +26,8 @@ import android.content.Context
 import android.content.Intent
 import androidx.core.app.NotificationChannelCompat
 import androidx.core.app.NotificationManagerCompat
-import io.github.yamin8000.owl.strings.R
+import io.github.yamin8000.owl.strings.R as StringsR
 import io.github.yamin8000.owl.ui.MainActivity
-import io.github.yamin8000.owl.R
 
 /**
  * Word-of-the-Day notification helper (Feature 1).
@@ -47,8 +46,8 @@ internal object WotdNotifier {
             CHANNEL_ID,
             NotificationManagerCompat.IMPORTANCE_DEFAULT
         )
-            .setName(context.getString(R.string.wotd_notification_channel_name))
-            .setDescription(context.getString(R.string.wotd_notification_channel_description))
+            .setName(context.getString(StringsR.string.wotd_notification_channel_name))
+            .setDescription(context.getString(StringsR.string.wotd_notification_channel_description))
             .build()
         NotificationManagerCompat.from(context).createNotificationChannel(channel)
     }
@@ -76,12 +75,12 @@ internal object WotdNotifier {
         )
 
         val notification = androidx.core.app.NotificationCompat.Builder(context, CHANNEL_ID)
-            .setSmallIcon(R.drawable.ic_wotd_notification)
-            .setContentTitle(context.getString(R.string.wotd_notification_title))
+            .setSmallIcon(StringsR.drawable.ic_wotd_notification)
+            .setContentTitle(context.getString(StringsR.string.wotd_notification_title))
             .setContentText(word)
             .setStyle(
                 androidx.core.app.NotificationCompat.BigTextStyle()
-                    .bigText(context.getString(R.string.wotd_notification_body, word))
+                    .bigText(context.getString(StringsR.string.wotd_notification_body, word))
             )
             .setContentIntent(deepLinkPendingIntent)
             .setAutoCancel(true)

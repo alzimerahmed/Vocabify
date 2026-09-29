@@ -56,7 +56,7 @@ import java.util.concurrent.TimeUnit
 internal class WotdWorker(
     context: Context,
     params: WorkerParameters
-) : CoroutineWorker(context, parameters = params) {
+) : CoroutineWorker(context, params) {
 
     override suspend fun doWork(): Result {
         return try {

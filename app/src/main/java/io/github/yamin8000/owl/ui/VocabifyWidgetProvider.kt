@@ -29,6 +29,7 @@ import android.content.Context
 import android.content.Intent
 import android.widget.RemoteViews
 import dagger.hilt.android.EntryPointAccessors
+import kotlinx.coroutines.runBlocking
 import io.github.yamin8000.owl.R
 import io.github.yamin8000.owl.strings.R as StringsR
 
@@ -56,18 +57,20 @@ internal class VocabifyWidgetProvider : AppWidgetProvider() {
     companion object {
 
         private fun readTodaysWord(context: Context): String {
-            return try {
-                val entryPoint = EntryPointAccessors.fromApplication(
-                    context,
-                    WotdEntryPoint::class.java
-                )
-                val settings = entryPoint.settings()
-                val today = WotdWorker.todayStamp()
-                if (settings.getWotdDate() == today) {
-                    settings.getWotdWord() ?: selectTodaysWord()
-                } else selectTodaysWord()
-            } catch (ignored: Exception) {
-                selectTodaysWord()
+            return runBlocking {
+                try {
+                    val entryPoint = EntryPointAccessors.fromApplication(
+                        context,
+                        WotdEntryPoint::class.java
+                    )
+                    val settings = entryPoint.settings()
+                    val today = WotdWorker.todayStamp()
+                    if (settings.getWotdDate() == today) {
+                        settings.getWotdWord() ?: selectTodaysWord()
+                    } else selectTodaysWord()
+                } catch (ignored: Exception) {
+                    selectTodaysWord()
+                }
             }
         }
 
