@@ -39,3 +39,8 @@ local.properties
 /.idea/betterCommentsSettings.xml
 /.idea/runConfigurations/app.xml
 /.idea/markdown.xml
+
+# Devin prompt system + per-project knowledge (private)
+.devin/
+docs/*.md
+.switchboard/

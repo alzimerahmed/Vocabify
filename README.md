@@ -1,86 +1,96 @@
+# Vocabify — offline-friendly English dictionary for Android
+
 <div align="center">
-<img src="app/src/main/ic_launcher-playstore.png"
-    alt="Get it on F-Droid"
-    height="75">
-<h1>freeDictionary</h1>
-</div>
 
 [![Android CI](https://github.com/yamin8000/freeDictionaryApp/actions/workflows/android.yml/badge.svg)](https://github.com/yamin8000/freeDictionaryApp/actions/workflows/android.yml)
-[![CodeFactor](https://www.codefactor.io/repository/github/yamin8000/freedictionaryapp/badge)](https://www.codefactor.io/repository/github/yamin8000/freedictionaryapp)
+[![Kotlin](https://img.shields.io/badge/Kotlin-2.4-7F52FF?logo=kotlin&logoColor=white)](https://kotlinlang.org)
+[![Compose](https://img.shields.io/badge/Jetpack%20Compose-Material%203-4285F4?logo=android&logoColor=white)](https://developer.android.com/compose)
+[![License](https://img.shields.io/badge/License-GPL--3.0-blue.svg)](./LICENSE)
 
-**freeDictionary** is an android dictionary
-for [freeDictionaryAPI](https://dictionaryapi.dev/) and [Wiktionary](https://wiktionary.org)
+*A clean, ad-free dictionary app built on freeDictionaryAPI and Wiktionary — definitions, pronunciation, history, favourites, and a persistent overlay search.*
 
-[<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
-alt="Get it on F-Droid"
-height="80">](https://f-droid.org/packages/io.github.yamin8000.owl)
+[Download](#download) • [Features](#features) • [Tech Stack](#tech-stack) • [Building](#building)
 
-## Preview
+</div>
 
-### Featured on [TechDoc](https://www.youtube.com/watch?v=vlf0jEFHR74&t=59s)
-
-<table>
-<tr>
-<td><img src="/fastlane/metadata/android/en-US/images/phoneScreenshots/1.png" alt="preview" width="200"/></td>
-<td><img src="/fastlane/metadata/android/en-US/images/phoneScreenshots/2.png" alt="preview" width="200"/></td>
-<td><img src="/fastlane/metadata/android/en-US/images/phoneScreenshots/3.png" alt="preview" width="200"/></td>
-</tr>
-<tr>
-<td align="center">Dark</td>
-<td align="center">Light</td>
-<td align="center">OLED</td>
-</tr>
-</table>
-
-More screenshots [here](./screenshots).
-
-## Compatibility
-
-> [!important]
-> **SDK24+** or **Android 7.0+**
-
-## Usage
-
-Just use the search input to search the word.
-
-## Download
-
-- GitHub releases: [here](https://github.com/yamin8000/freeDictionaryApp/releases)
-- F-Droid: [here](https://f-droid.org/packages/io.github.yamin8000.owl)
-- IzzyOnDroid: [here](https://apt.izzysoft.de/fdroid/index/apk/io.github.yamin8000.owl)
-- Bazaar: [here](https://cafebazaar.ir/app/io.github.yamin8000.owl)
+---
 
 ## Features
 
-- English to English dictionary
-- Supports multiple languages to English using Wiktionary API (case-sensitive)
-- Definition of the word
-- Example of the word usage if available
-- Synonyms/Antonyms of the work if available
-- Pronunciation of the word, both IPA text and audio using TTS
-- Save searched data for offline uses
-- Search for a random word
+- English-to-English dictionary via [freeDictionaryAPI](https://dictionaryapi.dev/)
+- Multi-language to English lookup via the [Wiktionary](https://wiktionary.org) API (case-sensitive)
+- Definitions, usage examples, synonyms/antonyms where available
+- Pronunciation: IPA text plus audio via TTS
+- Search history and favourites, stored locally for offline reuse
+- Random word discovery
+- Persistent overlay (bubble) search from any app
+- Material 3 / Material You with dynamic color, dark, light, and OLED themes
+
+## Screenshots
+
+See [`screenshots/`](./screenshots) and the Fastlane metadata images for current captures.
 
 ## Tech Stack
 
-- Kotlin(JVM)
-- Compose UI
-- Material3/Material You
-- Clean Architecture
-- Dependency Injection with Hilt/Dagger
-- MVI / MVVM
-- Retrofit, Moshi with KSP, Coil
-- Datastore, Room with KSP
-- Kotlinx Immutables
-- Lottie/Coil
-- Jsoup
+| Layer | Technology |
+|---|---|
+| Language | Kotlin 2.4 (JVM 21) |
+| UI | Jetpack Compose, Material 3 / Material You, Navigation Compose |
+| Architecture | Clean Architecture, MVI/MVVM, feature modules |
+| DI | Hilt (KSP) |
+| Networking | Retrofit 3 + Moshi (KSP codegen), Jsoup |
+| Persistence | Room, DataStore Preferences |
+| Media | Coil, Lottie, TTS |
+| Build | Gradle (Kotlin DSL), AGP 9.4, version catalog |
+
+## Project Structure
+
+```
+app/                 activity, navigation, DI wiring
+strings/             shared string resources
+common/              theme, shared composables, utilities
+datastore/           DataStore preferences repository
+search/              dictionary API layer (Retrofit/Moshi/Jsoup)
+feature_home/        word search screen
+feature_history/     search history
+feature_favourites/  saved words
+feature_overlay/     bubble overlay search
+feature_settings/    app settings
+feature_about/       about screen
+```
+
+## Download
+
+- GitHub Releases: [here](https://github.com/yamin8000/freeDictionaryApp/releases)
+
+## Building
+
+```bash
+git clone <this repo>
+./gradlew build          # requires JDK 21 + Android SDK
+```
+
+<details>
+<summary>Signing a release build</summary>
+
+The release workflow (`.github/workflows/release.yml`) builds a signed APK on tag push. It expects four repository secrets: `ANDROID_KEYSTORE_BASE64`, `ANDROID_KEYSTORE_PASSWORD`, `ANDROID_KEY_ALIAS`, `ANDROID_KEY_PASSWORD`. Never commit keystore material.
+
+</details>
+
+## Usage
+
+Type a word into the search input. Results show definitions, examples, synonyms/antonyms, and IPA; tap the pronunciation control to hear the word via TTS. Long-press or use the menu to favourite a word or search a random one.
+
+## Contributing
+
+Fork the repo, create a feature branch, and open a pull request against `master`. CI runs the full Gradle build on every PR.
+
+## Roadmap
+
+- [ ] Feature pipeline tracked in the internal `docs/plan.md`
+- [ ] Additional source languages for Wiktionary lookup
+- [ ] Word-of-the-day widget
 
 ## License
 
-> [!important]
-> freeDictionaryApp is licensed under the **[GNU General Public License v3.0](./LICENSE)**  
-> Permissions of this strong copyleft license are conditioned on making  
-> available complete source code of licensed works and modifications,  
-> which include larger works using a licensed work, under the same  
-> license. Copyright and license notices must be preserved. Contributors  
-> provide an express grant of patent rights.
+[GPL-3.0](./LICENSE) — original code Copyright (C) 2024 Yamin Siahmargooei; fork maintained by Alzimer Ahmed. Copyright and license notices are preserved as the license requires.
