@@ -56,6 +56,12 @@ android {
     buildFeatures {
         compose = true
     }
+
+    testOptions {
+        unitTests {
+            isIncludeAndroidResources = true
+        }
+    }
 }
 
 composeCompiler {
@@ -85,4 +91,12 @@ dependencies {
     ksp(libs.moshi.kotlin.codegen)
     //jsoup
     implementation(libs.jsoup)
+    //tests
+    testImplementation(libs.junit4)
+    testImplementation(libs.mockk)
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.turbine)
+    testImplementation(libs.robolectric)
+    testImplementation(platform(libs.androidx.compose.bom))
+    testImplementation(libs.androidx.compose.ui.test.junit4)
 }
