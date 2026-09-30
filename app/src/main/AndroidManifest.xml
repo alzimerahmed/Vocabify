@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?><!--
-  ~     freeDictionaryApp/freeDictionaryApp.app.main
+  ~     Vocabify/Vocabify.app.main
   ~     AndroidManifest.xml Copyrighted by Yamin Siahmargooei at 2024/5/9
   ~     AndroidManifest.xml Last modified at 2024/4/18
-  ~     This file is part of freeDictionaryApp/freeDictionaryApp.app.main.
+  ~     This file is part of Vocabify/Vocabify.app.main.
   ~     Copyright (C) 2024  Yamin Siahmargooei
   ~
-  ~     freeDictionaryApp/freeDictionaryApp.app.main is free software: you can redistribute it and/or modify
+  ~     Vocabify/Vocabify.app.main is free software: you can redistribute it and/or modify
   ~     it under the terms of the GNU General Public License as published by
   ~     the Free Software Foundation, either version 3 of the License, or
   ~     (at your option) any later version.
   ~
-  ~     freeDictionaryApp/freeDictionaryApp.app.main is distributed in the hope that it will be useful,
+  ~     Vocabify/Vocabify.app.main is distributed in the hope that it will be useful,
   ~     but WITHOUT ANY WARRANTY; without even the implied warranty of
   ~     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
   ~     GNU General Public License for more details.
   ~
   ~     You should have received a copy of the GNU General Public License
-  ~     along with freeDictionaryApp.  If not, see <https://www.gnu.org/licenses/>.
+  ~     along with Vocabify.  If not, see <https://www.gnu.org/licenses/>.
   -->
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
@@ -33,13 +33,13 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="false"
-        android:theme="@style/Theme.Owl.Splash">
+        android:theme="@style/Theme.Vocabify.Splash">
 
         <activity
             android:name="io.github.yamin8000.owl.ui.MainActivity"
             android:configChanges="orientation|keyboardHidden|keyboard|locale|screenLayout|screenSize"
             android:exported="true"
-            android:theme="@style/Theme.Owl.Splash"
+            android:theme="@style/Theme.Vocabify.Splash"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

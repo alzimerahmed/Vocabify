@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?><!--
-  ~     freeDictionaryApp/freeDictionaryApp.strings.main
+  ~     Vocabify/Vocabify.strings.main
   ~     strings.xml Copyrighted by Yamin Siahmargooei at 2025/10/27
   ~     strings.xml Last modified at 2025/10/27
-  ~     This file is part of freeDictionaryApp/freeDictionaryApp.strings.main.
+  ~     This file is part of Vocabify/Vocabify.strings.main.
   ~     Copyright (C) 2025  Yamin Siahmargooei
   ~
-  ~     freeDictionaryApp/freeDictionaryApp.strings.main is free software: you can redistribute it and/or modify
+  ~     Vocabify/Vocabify.strings.main is free software: you can redistribute it and/or modify
   ~     it under the terms of the GNU General Public License as published by
   ~     the Free Software Foundation, either version 3 of the License, or
   ~     (at your option) any later version.
   ~
-  ~     freeDictionaryApp/freeDictionaryApp.strings.main is distributed in the hope that it will be useful,
+  ~     Vocabify/Vocabify.strings.main is distributed in the hope that it will be useful,
   ~     but WITHOUT ANY WARRANTY; without even the implied warranty of
   ~     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
   ~     GNU General Public License for more details.
   ~
   ~     You should have received a copy of the GNU General Public License
-  ~     along with freeDictionaryApp.  If not, see <https://www.gnu.org/licenses/>.
+  ~     along with Vocabify.  If not, see <https://www.gnu.org/licenses/>.
   -->
 
 <resources>
@@ -38,7 +38,7 @@
     <string name="untracked_error">अनपेक्षित त्रुटि!</string>
     <string name="no_search_term_entered">कोई शब्द दर्ज नहीं किया गया।</string>
     <string name="share">साझा करें</string>
-    <string name="this_text_generated_using_owl">यह पाठ Owl ऐप का उपयोग करके बनाया गया है</string>
+    <string name="this_text_generated_using_vocabify">यह पाठ Vocabify ऐप का उपयोग करके बनाया गया है</string>
     <string name="clear_all">सभी साफ़ करें</string>
     <string name="settings">सेटिंग्स</string>
     <string name="theme">थीम</string>

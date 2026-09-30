@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?><!--
-  ~     Vocabify/freeDictionaryApp.app.main
+  ~     Vocabify/Vocabify.app.main
   ~     widget_vocabify.xml Copyrighted by Yamin Siahmargooei at 2026/6/25
-  ~     This file is part of Vocabify/freeDictionaryApp.app.main.
+  ~     This file is part of Vocabify/Vocabify.app.main.
   ~     Copyright (C) 2026  Yamin Siahmargooei
   ~
-  ~     Vocabify/freeDictionaryApp.app.main is free software: you can redistribute it and/or modify
+  ~     Vocabify/Vocabify.app.main is free software: you can redistribute it and/or modify
   ~     it under the terms of the GNU General Public License as published by
   ~     the Free Software Foundation, either version 3 of the License, or
   ~     (at your option) any later version.
   ~
-  ~     Vocabify/freeDictionaryApp.app.main is distributed in the hope that it will be useful,
+  ~     Vocabify/Vocabify.app.main is distributed in the hope that it will be useful,
   ~     but WITHOUT ANY WARRANTY; without even the implied warranty of
   ~     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
   ~     GNU General Public License for more details.
   ~
   ~     You should have received a copy of the GNU General Public License
-  ~     along with freeDictionaryApp.  If not, see <https://www.gnu.org/licenses/>.
+  ~     along with Vocabify.  If not, see <https://www.gnu.org/licenses/>.
   -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
